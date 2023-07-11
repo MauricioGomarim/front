@@ -15,6 +15,6 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   grid-area: content;
-  background-color: black;
+  background-color: white;
   color: red;
 `;

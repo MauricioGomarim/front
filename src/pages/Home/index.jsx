@@ -4,8 +4,10 @@ import { Brand } from "../../components/Brand";
 import { Menu } from "../../components/Menu";
 import { ButtonAddProd } from "../../components/ButtonAddProd";
 import { Dashboard } from "../../components/Dashboard";
-import { VerProd } from "../../components/VerProd";
 import { useState, useEffect } from "react"
+import { PageCadastroProd } from "../../components/PageCadastroProd"
+import { ListagemProdutos } from "../../components/ListagemProdutos"
+
 
 export function Home() {
 
@@ -13,8 +15,8 @@ export function Home() {
 
   const renderContent = () => {
 
-    if (page === 'VerProd') {
-      return <VerProd />;
+    if (page === 'cadastroProduto') {
+      return <PageCadastroProd />;
     } 
     if (page === 'dashboard') {
       return <Dashboard />;
@@ -35,7 +37,8 @@ export function Home() {
       <Header />
       <Menu page={page} setPage={setPage} />
       <Content>
-       {renderContent()}
+      <ListagemProdutos />
+       {/* {renderContent()} */}
       </Content>
       <ButtonAddProd />
     </Container>

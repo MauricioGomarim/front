@@ -28,7 +28,7 @@ export function Menu({ page ,setPage, ...rest }) {
       </div>
       <div className={(active === "Cadastrar produtos" ? "show" : " ") + " accordionContent"}>
         <ul>
-          <li className={(page === "dashboard" ? "Active" : " ")} onClick={() => setPage("dashboard")}>Cadastrar produto</li>
+          <li className={(page === "cadastroProduto" ? "Active" : " ")} onClick={() => setPage("cadastroProduto")}>Cadastrar produto</li>
           <li className={(page === "VerProd" ? "Active" : " ")}  onClick={() => setPage("VerProd")}>Ver produtos</li>
           <li className={(page === "Cadastro" ? "Active" : " ")}  onClick={() => setPage("Cadastro")}>Cadastro</li>
 

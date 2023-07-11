@@ -25,9 +25,14 @@ export default createGlobalStyle`
         filter: brightness(0.9);
     }
 
-    body,input,button, textarea{
+    body,input,button, textarea, select{
         font-family: 'Roboto Slab', serif;
         font-size: 16px;
+        outline: none;
+    }
+
+    input, select{
+        border: none;
         outline: none;
     }
 `
