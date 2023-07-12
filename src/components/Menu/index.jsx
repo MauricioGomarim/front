@@ -1,13 +1,11 @@
 import { Container } from "./styles";
 import { RiArrowDownSLine, RiCloseFill } from "react-icons/ri";
 import { useState } from "react"
+import { usePage } from "../../hook/pages"
 
 export function Menu({ page ,setPage, ...rest }) {
 
-  const [active, setActive] = useState("");
-  const [activeLink, setActiveLink] = useState("");
-
-
+  const {active , setActive} = usePage("")
 
   return (
     <Container {...rest}>

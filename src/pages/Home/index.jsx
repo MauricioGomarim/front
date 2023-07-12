@@ -7,38 +7,44 @@ import { Dashboard } from "../../components/Dashboard";
 import { useState, useEffect } from "react"
 import { PageCadastroProd } from "../../components/PageCadastroProd"
 import { ListagemProdutos } from "../../components/ListagemProdutos"
+import { PageEditarProd } from "../../components/PageEditarProd"
+
+
+import { usePage } from "../../hook/pages"
 
 
 export function Home() {
 
-  const [page, setPage] = useState('dashboard')
+  const {page , setPage} = usePage()
 
   const renderContent = () => {
 
     if (page === 'cadastroProduto') {
       return <PageCadastroProd />;
     } 
-    if (page === 'dashboard') {
-      return <Dashboard />;
+    if (page === 'VerProd') {
+      return <ListagemProdutos />;
     }
-
-    if (page === 'Cadastro') {
-      return 'Cadastro';
+    if (page === 'Editar') {
+      return <PageEditarProd />;
+    }
+    else {
+      return <Dashboard />
     }
   };
   
+  console.log(page)
   useEffect(() => {
 
   }, []);
 
   return (
     <Container>
-      <Brand />
+      <Brand onClick={() => setPage('Dashboard')} />
       <Header />
       <Menu page={page} setPage={setPage} />
       <Content>
-      <ListagemProdutos />
-       {/* {renderContent()} */}
+       {renderContent()}
       </Content>
       <ButtonAddProd />
     </Container>

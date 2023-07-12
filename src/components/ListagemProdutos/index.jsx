@@ -1,8 +1,17 @@
 import { Container } from "./styles";
 import foto from "../../assets/brand.jpeg";
 import { Button } from "../../components/Button";
+import { usePage } from "../../hook/pages"
 
 export function ListagemProdutos() {
+  const {page , setPage} = usePage()
+
+  function handleSetPage(){
+    setPage("Editar");
+    console.log(page);
+    return
+  }
+
   return (
     <Container>
       <table>
@@ -30,7 +39,7 @@ export function ListagemProdutos() {
             <td>G</td>
             <td>20</td>
             <td>
-              <Button title="Editar" style={{ fontSize: "15px" }} />
+              <Button title="Editar" style={{ fontSize: "15px" }} onClick={handleSetPage} />
             </td>
           </tr>
 

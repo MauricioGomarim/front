@@ -2,12 +2,12 @@ import {Container } from "./styles"
 import brandVictor from "../../assets/brand.jpeg"
 import { Link } from "react-router-dom";
 
-export function Brand(){
+export function Brand({...rest}){
     return (
-        <Container>
-            <Link to="/">
+        <Container {...rest}>
+            <a>
             <img src={brandVictor} alt="" />
-            </Link>
+            </a>
             
         </Container>
     )
