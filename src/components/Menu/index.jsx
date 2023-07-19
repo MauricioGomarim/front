@@ -11,7 +11,7 @@ export function Menu({ page ,setPage, ...rest }) {
     <Container {...rest}>
       <div>
       <div className="title-accordion" onClick={() => setActive("Cadastrar produtos")}>
-        <h1>Cadastrar produtos</h1>
+        <h1>Controle produtos</h1>
         <span>
           {active === "Cadastrar produtos" ? (
             <span>
@@ -28,15 +28,13 @@ export function Menu({ page ,setPage, ...rest }) {
         <ul>
           <li className={(page === "cadastroProduto" ? "Active" : " ")} onClick={() => setPage("cadastroProduto")}>Cadastrar produto</li>
           <li className={(page === "VerProd" ? "Active" : " ")}  onClick={() => setPage("VerProd")}>Ver produtos</li>
-          <li className={(page === "Cadastro" ? "Active" : " ")}  onClick={() => setPage("Cadastro")}>Cadastro</li>
-
         </ul>
       </div>
       </div>
 
       <div>
       <div className="title-accordion" onClick={() => setActive("Controle de caixa")}>
-        <h1>Controle de caixa</h1>
+        <h1>Marcas</h1>
         <span>
           {active === "Controle de caixa" ? (
             <span>
@@ -51,9 +49,8 @@ export function Menu({ page ,setPage, ...rest }) {
       </div>
       <div className={(active === "Controle de caixa" ? "show" : " ") + " accordionContent"}>
         <ul>
-          <li>Cadastrar produto</li>
-          <li>Cadastrar produto</li>
-          <li>Cadastrar produto</li>
+          <li className={(page === "cadastroMarca" ? "Active" : " ")} onClick={() => setPage("cadastroMarca")}>Cadastrar marca</li>
+          <li className={(page === "VerMarca" ? "Active" : " ")}  onClick={() => setPage("VerMarca")}>Ver marcas</li>
         </ul>
       </div>
       </div>

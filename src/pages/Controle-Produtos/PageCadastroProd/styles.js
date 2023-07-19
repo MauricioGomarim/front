@@ -82,6 +82,30 @@ export const Form = styled.form`
         div {
             margin-right: 2%;
         }
+
+
+        .selectField{
+        border-radius: 10px;
+        width: 30%;
+        margin-right: 2%;
+        
+        h1 {
+            font-weight: 700;
+        font-size: 20px;
+        color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
+        }
+        }
+
+        .selectField select {
+        background-color: ${({ theme }) => theme.COLORS.GRAY};
+        padding: 10px 15px;
+        border-radius: 10px;
+        width: 100%;
+        height: 50px;
+        font-size: 14px;
+        font-weight: 400;
+        color: ${({ theme }) => theme.COLORS.GRAY_300};
+        }
     }
 
     @media (max-width: 980px) {

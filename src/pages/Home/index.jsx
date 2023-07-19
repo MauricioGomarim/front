@@ -5,9 +5,15 @@ import { Menu } from "../../components/Menu";
 import { ButtonAddProd } from "../../components/ButtonAddProd";
 import { Dashboard } from "../../components/Dashboard";
 import { useState, useEffect } from "react"
-import { PageCadastroProd } from "../../components/PageCadastroProd"
-import { ListagemProdutos } from "../../components/ListagemProdutos"
-import { PageEditarProd } from "../../components/PageEditarProd"
+import { PageCadastroProd } from "../Controle-Produtos/PageCadastroProd"
+import { PageCadastroMarca } from "../Controle-Marcas/PageCadastroMarca"
+
+
+import { ListagemProdutos } from "../Controle-Produtos/ListagemProdutos"
+import { PageEditarProd } from "../Controle-Produtos/PageEditarProd"
+
+import { ListagemMarcas } from "../Controle-Marcas/ListagemMarcas"
+
 
 
 import { usePage } from "../../hook/pages"
@@ -22,11 +28,15 @@ export function Home() {
     if (page === 'cadastroProduto') {
       return <PageCadastroProd />;
     } 
+    if (page === 'cadastroMarca') {
+      return <PageCadastroMarca />;
+    } 
     if (page === 'VerProd') {
       return <ListagemProdutos />;
     }
-    if (page === 'Editar') {
-      return <PageEditarProd />;
+
+    if (page === 'VerMarca') {
+      return <ListagemMarcas />;
     }
     else {
       return <Dashboard />

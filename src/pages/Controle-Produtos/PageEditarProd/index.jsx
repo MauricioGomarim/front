@@ -1,12 +1,21 @@
 import { Container, Form, Foto } from "./styles";
-import { InputField } from "../InputField";
-import { Button } from "../Button";
-import foto from "../../assets/brand.jpeg";
+import { InputField } from "../../../components/InputField";
+import { Button } from "../../../components/Button";
+import foto from "../../../assets/brand.jpeg";
 
-export function PageCadastroProd() {
+export function PageEditarProd() {
   return (
     <>
-      <h1 style={{paddingLeft: "50px", marginTop: "20px", color:"black", fontSize: "30px"}}>Cadastrar produtos</h1>
+      <h1
+        style={{
+          paddingLeft: "50px",
+          marginTop: "20px",
+          color: "black",
+          fontSize: "30px",
+        }}
+      >
+        Editar produto
+      </h1>
       <Container>
         <Foto>
           <label htmlFor="avatar">
@@ -53,7 +62,8 @@ export function PageCadastroProd() {
         </Form>
 
         <div className="row4">
-          <Button title="Cadastrar" />
+          <Button title="Excluir" />
+          <Button title="Confirmar" />
         </div>
       </Container>
     </>
