@@ -16,8 +16,12 @@ export const Container = styled.div`
     gap: 10px;
     margin-bottom: 10px;
     cursor: pointer;
-    
+
   }
+
+    ul li a {
+      color: ${({ theme }) => theme.COLORS.WHITE};
+    }
 
   ul li:before {
     content: "";

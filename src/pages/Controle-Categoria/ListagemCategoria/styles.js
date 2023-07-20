@@ -1,10 +1,9 @@
 import styled from "styled-components";
 
-export const Content = styled.div`
-
-
+export const Container = styled.div`
   table {
-    width: 100%;
+    width: 50%;
+    padding-left: 20px;
     font-weight: 700;
     font-size: 16px;
     color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
@@ -35,36 +34,15 @@ export const Content = styled.div`
   }
 
   tbody td {
-    padding-left: 10px;
-  }
+    padding: 10px;
+    font-size: 18px;
 
-  tbody td a {
-    color:${({ theme }) => theme.COLORS.BASE};
-    background-color: ${({ theme }) => theme.COLORS.BASE_100};
-    padding:10px 30px;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-  }
-
-  tbody td a:hover {
-    background-color: ${({ theme }) => theme.COLORS.BASE};
-    color: ${({ theme }) => theme.COLORS.WHITE};
+    button {
+      font-size: 17px;
+    }
   }
 
   tbody tr img {
     max-height: 80px;
   }
 `;
-
-
-export const Container = styled.div`
-  height: 100vh;
-  display: grid;
-  grid-template-columns: 250px auto;
-  grid-template-rows: 105px 128px auto 64px;
-  grid-template-areas:
-    "brand header"
-    "menu content"
-    "menu content"
-    "AdicionarProd content";
-    `

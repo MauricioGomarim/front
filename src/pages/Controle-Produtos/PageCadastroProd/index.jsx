@@ -1,10 +1,18 @@
-import { Container, Form, Foto } from "./styles";
+
+import { Menu } from "../../../components/Menu";
+import { Brand } from "../../../components/Brand";
+import { Header } from "../../../components/Header";
+import { ButtonAddProd } from "../../../components/ButtonAddProd";
+
+
+
+
+import { ContentForm, Content , Form, Foto, Container } from "./styles";
 import { InputField } from "../../../components/InputField";
 import { Button } from "../../../components/Button";
 import foto from "../../../assets/brand.jpeg";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../../services/api";
-
 
 import { useState, useEffect } from "react";
 
@@ -17,10 +25,12 @@ export function PageCadastroProd() {
   const [amount, setAmount] = useState("");
   const [price, setPrice] = useState("");
   const [image, setImage] = useState(null);
+  const [avatar, setAvatar] = useState(null);
+
+  const [brands, setBrands] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   const navigate = useNavigate();
-
-  
 
   async function handleCadastrar() {
     const formData = new FormData();
@@ -48,107 +58,131 @@ export function PageCadastroProd() {
     return;
   }
 
+  async function handleChangeAvatar(event) {
+    const file = event.target.files[0];
+    setImage(file);
 
-  function imageTeste(){
-    console.log(image)
+    const imagePreview = URL.createObjectURL(file);
+    setAvatar(imagePreview);
   }
 
   useEffect(() => {
-    console.log(image)
+    async function fetch() {
+      const responseBrand = await api.get(`/brand`);
+      setBrands(responseBrand.data);
+
+      const responseCategory = await api.get(`/category`);
+      setCategories(responseCategory.data);
+    }
+    fetch();
   }, []);
 
   return (
-    <>
-      <h1
-        style={{
-          paddingLeft: "50px",
-          marginTop: "20px",
-          color: "black",
-          fontSize: "30px",
-        }}
-      >
-        Cadastrar produtos
-      </h1>
-      <Container>
-        <Foto>
-          <label htmlFor="avatar">
-            Foto produto
-            <img src={foto} />
-            <input id="avatar" type="file" name="image" accept="image/*" onChange={(e) => setImage(e.target.files[0])} />
-          </label>
-        </Foto>
-        <Form>
-          <div className="row1">
-            <InputField
-              placeholder="teste"
-              title="Name"
-              onChange={(e) => setName(e.target.value)}
-            />
-            <div className="selectField">
-              <h1>Categoria</h1>
-              <select
-                name="select"
-                onChange={(e) => setCategory(e.target.value)}
-              >
-                <option disabled selected>
-                  Selecione...
-                </option>
-                <option value="Blusa">Blusa</option>
-                <option value="Camisa">Camisa</option>
-                <option value="Calça">Calça</option>
-                <option value="Short">Short</option>
-              </select>
+    <Container>
+      <Brand />
+      <Header />
+      <Menu />
+      <Content>
+        <h1
+          style={{
+            paddingLeft: "50px",
+            marginTop: "20px",
+            color: "black",
+            fontSize: "30px",
+          }}
+        >
+          Cadastrar produtos
+        </h1>
+        <ContentForm>
+          <Foto>
+            <label htmlFor="avatar">
+              Foto produto
+              <img src={avatar ? avatar : foto} />
+              <input
+                id="avatar"
+                type="file"
+                name="image"
+                accept="image/*"
+                onChange={handleChangeAvatar}
+              />
+            </label>
+          </Foto>
+          <Form>
+            <div className="row1">
+              <InputField
+                placeholder="teste"
+                title="Name"
+                onChange={(e) => setName(e.target.value)}
+              />
+              <div className="selectField">
+                <h1>Categoria</h1>
+                <select
+                  name="select"
+                  onChange={(e) => setCategory(e.target.value)}
+                >
+                  <option disabled selected>
+                    Selecione...
+                  </option>
+                  {categories.map((categorie) => (
+                    <option value={categorie.title}>{categorie.title}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="selectField">
+                <h1>Marca</h1>
+                <select
+                  name="select"
+                  onChange={(e) => setBrand(e.target.value)}
+                >
+                  <option disabled selected>
+                    Selecione...
+                  </option>
+                  {brands.map((brand) => (
+                    <option value={brand.title}>{brand.title}</option>
+                  ))}
+                </select>
+              </div>
             </div>
-            <div className="selectField">
-              <h1>Marca</h1>
-              <select name="select" onChange={(e) => setBrand(e.target.value)}>
-                <option disabled selected>
-                  Selecione...
-                </option>
-                <option value="Refeição">Refeição</option>
-                <option value="Bebida">Bebida</option>
-                <option value="Sobremesa">Sobremesa</option>
-              </select>
+            <div className="row2">
+              <InputField
+                placeholder="teste"
+                title="Descrição"
+                onChange={(e) => setDescription(e.target.value)}
+              />
             </div>
-          </div>
-          <div className="row2">
-            <InputField
-              placeholder="teste"
-              title="Descrição"
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </div>
 
-          <div className="row3">
-            <div className="selectField">
-              <h1>Tamanho</h1>
-              <select name="select" onChange={(e) => setSize(e.target.value)}>
-                <option disabled selected>
-                  Selecione...
-                </option>
-                <option value="P">P</option>
-                <option value="M">M</option>
-                <option value="G">G</option>
-                <option value="GG">GG</option>
-              </select>
+            <div className="row3">
+              <div className="selectField">
+                <h1>Tamanho</h1>
+                <select name="select" onChange={(e) => setSize(e.target.value)}>
+                  <option disabled selected>
+                    Selecione...
+                  </option>
+                  <option value="P">P</option>
+                  <option value="M">M</option>
+                  <option value="G">G</option>
+                  <option value="GG">GG</option>
+                </select>
+              </div>
+              <InputField
+                placeholder="teste"
+                title="Qtd"
+                onChange={(e) => setAmount(e.target.value)}
+              />
+              <InputField
+                placeholder="teste"
+                title="Preço por unidade"
+                onChange={(e) => setPrice(e.target.value)}
+              />
             </div>
-            <InputField
-              placeholder="teste"
-              title="Qtd"
-              onChange={(e) => setAmount(e.target.value)}
-            />
-            <InputField
-              placeholder="teste"
-              title="Preço por unidade"
-              onChange={(e) => setPrice(e.target.value)}
-            />
-          </div>
-        </Form>
+          </Form>
 
-        <div className="row4">
-          <Button title="Cadastrar" onClick={handleCadastrar} />
-        </div>
-      </Container>
-    </>
+          <div className="row4">
+            <Button title="Cadastrar" onClick={handleCadastrar} />
+          </div>
+        </ContentForm>
+      </Content>
+      <ButtonAddProd />
+    </Container>
   );
 }

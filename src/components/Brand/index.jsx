@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 export function Brand({...rest}){
     return (
         <Container {...rest}>
-            <a>
+            <Link to="/">
             <img src={brandVictor} alt="" />
-            </a>
+            </Link>
             
         </Container>
     )
