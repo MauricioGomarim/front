@@ -98,8 +98,9 @@ export const Foto = styled.div`
 
   img {
     width: 100%;
-    max-width: 250px;
-    margin: 0 auto;
+        margin: 0 auto;
+        max-height: 250px;
+        object-fit: contain;
   }
 
   label {
@@ -132,9 +133,11 @@ export const Content = styled.div`
   .container-form {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 50px;
 
     .form-button {
-        width: 70%;
+        width: 68%;
         height: 100%;
     }
   }

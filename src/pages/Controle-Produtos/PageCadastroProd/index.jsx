@@ -10,7 +10,7 @@ import { ButtonAddProd } from "../../../components/ButtonAddProd";
 import { ContentForm, Content , Form, Foto, Container } from "./styles";
 import { InputField } from "../../../components/InputField";
 import { Button } from "../../../components/Button";
-import foto from "../../../assets/brand.jpeg";
+import foto from "../../../assets/placeholder-img.jpg";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../../services/api";
 
@@ -66,6 +66,7 @@ export function PageCadastroProd() {
     setAvatar(imagePreview);
   }
 
+
   useEffect(() => {
     async function fetch() {
       const responseBrand = await api.get(`/brand`);
@@ -86,7 +87,6 @@ export function PageCadastroProd() {
         <h1
           style={{
             paddingLeft: "50px",
-            marginTop: "20px",
             color: "black",
             fontSize: "30px",
           }}

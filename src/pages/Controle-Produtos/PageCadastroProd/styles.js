@@ -3,6 +3,7 @@ import styled from "styled-components"
 
 export const Container = styled.div`
   height: 100vh;
+
   display: grid;
   grid-template-columns: 250px auto;
   grid-template-rows: 105px 128px auto 64px;
@@ -14,7 +15,7 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-
+  padding: 30px;
 `
 
 
@@ -22,6 +23,8 @@ export const Content = styled.div`
 export const ContentForm = styled.div`
 padding: 30px;
 display: flex;
+margin-top: 30px;
+justify-content: space-between;
 flex-wrap: wrap;
 height: fit-content;
 
@@ -42,7 +45,7 @@ height: fit-content;
 export const Form = styled.form`
     display: flex;
     flex-wrap: wrap;
-    width: 70%;
+    width: 68%;
     height: 100%;
 
     .row1 {
@@ -138,8 +141,9 @@ export const Foto = styled.div`
 
     img {
         width: 100%;
-        max-width: 250px;
         margin: 0 auto;
+        max-height: 250px;
+        object-fit: contain;
     }
 
     label {
