@@ -88,7 +88,7 @@ export function PageCadastroProd() {
           style={{
             paddingLeft: "50px",
             color: "black",
-            fontSize: "30px",
+            fontSize: "30px"
           }}
         >
           Cadastrar produtos
