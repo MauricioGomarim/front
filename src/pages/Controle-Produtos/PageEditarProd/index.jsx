@@ -5,6 +5,8 @@ import { Menu } from "../../../components/Menu";
 import { Brand } from "../../../components/Brand";
 import { Header } from "../../../components/Header";
 import { ButtonAddProd } from "../../../components/ButtonAddProd";
+import { DesenvolvidoPor } from "../../../components/DesenvolvidoPor";
+
 import { api } from "../../../services/api";
 
 import { useParams, useNavigate } from "react-router-dom";
@@ -210,6 +212,7 @@ export function PageEditarProd() {
       </Content>
 
       <ButtonAddProd />
+      <DesenvolvidoPor />
     </Container>
   );
 }

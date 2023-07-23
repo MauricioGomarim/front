@@ -1,6 +1,7 @@
 import { Menu } from "../../../components/Menu";
 import { Brand } from "../../../components/Brand";
 import { Header } from "../../../components/Header";
+import {DesenvolvidoPor} from "../../../components/DesenvolvidoPor"
 import { ButtonAddProd } from "../../../components/ButtonAddProd";
 
 import { Link } from "react-router-dom";
@@ -47,7 +48,7 @@ export function ListagemProdutos() {
             {produtos.map((produto, index) => (
               <tr>
                 <td>
-                  <div>
+                  <div className="foto">
                     {produto.image ? (
                       <img
                         src={`${api.defaults.baseURL}/files/${produto.image}`}
@@ -71,6 +72,7 @@ export function ListagemProdutos() {
         </table>
       </Content>
       <ButtonAddProd />
+      <DesenvolvidoPor />
     </Container>
   );
 }

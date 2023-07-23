@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 export const Content = styled.div`
-
+  overflow-y: auto;
+  height: 75vh;
 
   table {
     width: 100%;
@@ -9,7 +10,7 @@ export const Content = styled.div`
     font-size: 16px;
     color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
 
-    overflow: overlay;
+    overflow: hidden;
     white-space: nowrap;
     
   }
@@ -38,6 +39,11 @@ export const Content = styled.div`
     padding-left: 10px;
   }
 
+  tbody td .foto {
+    display: flex;
+    justify-content: center;
+  }
+
   tbody td a {
     color:${({ theme }) => theme.COLORS.BASE};
     background-color: ${({ theme }) => theme.COLORS.BASE_100};
@@ -56,9 +62,9 @@ export const Content = styled.div`
   }
 `;
 
-
 export const Container = styled.div`
   height: 100vh;
+  overflow: hidden;
   display: grid;
   grid-template-columns: 250px auto;
   grid-template-rows: 105px 128px auto 64px;
@@ -66,5 +72,5 @@ export const Container = styled.div`
     "brand header"
     "menu content"
     "menu content"
-    "AdicionarProd content";
+    "AdicionarProd desenvolvidoPor";
     `

@@ -3,6 +3,8 @@ import { Menu } from "../../../components/Menu";
 import { Brand } from "../../../components/Brand";
 import { Header } from "../../../components/Header";
 import { ButtonAddProd } from "../../../components/ButtonAddProd";
+import { DesenvolvidoPor } from "../../../components/DesenvolvidoPor";
+
 
 
 
@@ -183,6 +185,7 @@ export function PageCadastroProd() {
         </ContentForm>
       </Content>
       <ButtonAddProd />
+      <DesenvolvidoPor/>
     </Container>
   );
 }

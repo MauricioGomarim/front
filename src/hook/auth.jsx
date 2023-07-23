@@ -1,11 +1,13 @@
 import { useContext, useState, useEffect } from "react";
 import { createContext } from "react";
+import { Navigate } from "react-router-dom";
 
 import { api } from "../services/api";
 export const AuthContext = createContext({});
 
 function AuthProvider({ children }) {
   const [data, setData] = useState({});
+
 
   async function signIn({ email, password }) {
     try {
@@ -32,9 +34,10 @@ function AuthProvider({ children }) {
   }
 
     function Logout() {
-    localStorage.removeItem("@rockeatfood:token");
-    localStorage.removeItem("@rockeatfood:user");
+    localStorage.removeItem("@sistema-produtos:token");
+    localStorage.removeItem("@sistema-produtos:user");
     setData({});
+    <Navigate to = "/" />
     return
   }
 

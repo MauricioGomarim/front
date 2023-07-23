@@ -11,7 +11,7 @@ export const Container = styled.div`
     "brand header"
     "menu content"
     "menu content"
-    "AdicionarProd content";
+    "AdicionarProd desenvolvidoPor";
 `;
 
 export const Content = styled.div`
