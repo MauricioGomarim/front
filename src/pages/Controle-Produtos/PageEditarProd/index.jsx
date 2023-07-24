@@ -34,7 +34,7 @@ export function PageEditarProd() {
   const [categories, setCategories] = useState([]);
 
 
-   // const urlFormated =  avatar ? `${api.defaults.baseURL}/files/${avatar}` : foto;
+   const urlFormated =  avatar ? `${api.defaults.baseURL}/files/${avatar}` : foto;
 
   async function handleCadastrar() {
 
@@ -96,7 +96,11 @@ export function PageEditarProd() {
       setSize(size);
       setAmount(amount);
       setPrice(price);
-      setAvatar(`${api.defaults.baseURL}/files/${image}`);
+
+      if(image){
+        setAvatar(image);
+      }
+
       setPrice(price);
     }
     buscarDadosProduto();
@@ -130,7 +134,7 @@ export function PageEditarProd() {
           <Foto>
             <label htmlFor="avatar">
               Foto produto
-              <img src={avatar} />
+              <img src={urlFormated} />
               <input id="avatar" type="file" name="image" accept="image/*" onChange={handleChangeAvatar} />
             </label>
           </Foto>

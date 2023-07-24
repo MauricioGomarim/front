@@ -6,7 +6,7 @@ import { ButtonAddProd } from "../../../components/ButtonAddProd";
 
 import { Link } from "react-router-dom";
 import { Content, Container } from "./styles";
-import foto from "../../../assets/brand.jpeg";
+import foto from "../../../assets/placeholder-img.jpg";
 import { Button } from "../../../components/Button";
 import { usePage } from "../../../hook/pages";
 import { api } from "../../../services/api";
