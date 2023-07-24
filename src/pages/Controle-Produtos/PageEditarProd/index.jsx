@@ -1,4 +1,4 @@
-import { Container, Form, Foto, Content } from "./styles";
+import { ContentForm, Content , Form, Foto, Container } from "./styles";
 import { InputField } from "../../../components/InputField";
 import { Button } from "../../../components/Button";
 import { Menu } from "../../../components/Menu";
@@ -13,6 +13,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import foto from "../../../assets/placeholder-img.jpg";
 import { usePage } from "../../../hook/pages";
+import { BiFontSize } from "react-icons/bi";
 
 export function PageEditarProd() {
   const { page, setPage } = usePage();
@@ -20,6 +21,7 @@ export function PageEditarProd() {
 
   const [data, setData] = useState("");
 
+  const [codigo, setCod] = useState("");
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
@@ -78,6 +80,7 @@ export function PageEditarProd() {
       setData(response.data);
 
       const {
+        codigo,
         title,
         category,
         brand,
@@ -96,6 +99,8 @@ export function PageEditarProd() {
       setSize(size);
       setAmount(amount);
       setPrice(price);
+      setCod(codigo);
+
 
       if(image){
         setAvatar(image);
@@ -125,94 +130,113 @@ export function PageEditarProd() {
           style={{
             paddingLeft: "50px",
             color: "black",
-            fontSize: "30px",
+            fontSize: "30px"
           }}
         >
-          Editar produto
+          Editar produtos
         </h1>
-        <div className="container-form">
+        <ContentForm>
           <Foto>
             <label htmlFor="avatar">
               Foto produto
               <img src={urlFormated} />
-              <input id="avatar" type="file" name="image" accept="image/*" onChange={handleChangeAvatar} />
+              <input
+                id="avatar"
+                type="file"
+                name="image"
+                accept="image/*"
+                onChange={handleChangeAvatar}
+              />
             </label>
           </Foto>
-          <div className="form-button">
-            <Form>
-              <div className="row1">
-                <InputField
-                  placeholder="teste"
-                  title="Name"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                />
-                <div className="selectField">
-                  <h1>Categoria</h1>
-                  <select
-                    name="select"
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                  >
-                    <option disabled>Selecione...</option>
-                    {categories.map((categorie) => (
-                      <option value={categorie.title}>{categorie.title}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="selectField">
-                  <h1>Marca</h1>
-                  <select
-                    name="select"
-                    value={brand}
-                    onChange={(e) => setBrand(e.target.value)}
-                  >
-                    <option disabled selected>
-                      Selecione...
-                    </option>
-                    {brands.map((brand) => (
-                      <option value={brand.title}>{brand.title}</option>
-                    ))}
-                  </select>
-                </div>
+          <Form>
+            <div className="row1">
+            <InputField
+                placeholder="Código"
+                title="Código"
+                onChange={(e) => setCod(e.target.value)}
+                value={codigo}
+              />
+              <InputField
+                placeholder="Nome"
+                title="Nome"
+                onChange={(e) => setName(e.target.value)}
+                value={title}
+              />
+              <div className="selectField">
+                <h1>Categoria</h1>
+                <select
+                  name="select"
+                  onChange={(e) => setCategory(e.target.value)}
+                  value={category}
+                >
+                  <option disabled selected>
+                    Selecione...
+                  </option>
+                  {categories.map((categorie) => (
+                    <option value={categorie.title}>{categorie.title}</option>
+                  ))}
+                </select>
               </div>
-              <div className="row2">
-                <InputField
-                  placeholder="teste"
-                  title="Descrição"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </div>
-
-              <div className="row3">
-                <InputField
-                  placeholder="teste"
-                  title="Tamanho"
-                  value={size}
-                  onChange={(e) => setSize(e.target.value)}
-                />
-                <InputField
-                  placeholder="teste"
-                  title="Qtd"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                />
-                <InputField
-                  placeholder="teste"
-                  title="Preço por unidade"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                />
-              </div>
-            </Form>
-
-            <div className="row4">
-              <Button title="Excluir" />
-              <Button title="Confirmar" onClick={handleCadastrar} />
+          
             </div>
+            <div className="row3">
+            <div className="selectField">
+                <h1>Marca</h1>
+                <select
+                  name="select"
+                  onChange={(e) => setBrand(e.target.value)}
+                  value={brand}
+                >
+                  <option disabled selected>
+                    Selecione...
+                  </option>
+                  {brands.map((brand) => (
+                    <option value={brand.title}>{brand.title}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="selectField">
+                <h1>Tamanho</h1>
+                <select name="select" onChange={(e) => setSize(e.target.value)} value={size}>
+                  <option disabled selected>
+                    Selecione...
+                  </option>
+                  <option value="P">P</option>
+                  <option value="M">M</option>
+                  <option value="G">G</option>
+                  <option value="GG">GG</option>
+                </select>
+              </div>
+              <InputField
+                placeholder="teste"
+                title="Qtd"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+              />
+              <InputField
+                placeholder="teste"
+                title="Valor p/und"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+              />
+            </div>
+            <div className="row2">
+              <InputField
+                placeholder="teste"
+                title="Descrição"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+
+    
+          </Form>
+
+          <div className="row4">
+            <Button title="Cadastrar" onClick={handleCadastrar} />
           </div>
-        </div>
+        </ContentForm>
       </Content>
 
       <ButtonAddProd />

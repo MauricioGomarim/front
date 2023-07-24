@@ -19,6 +19,7 @@ import { api } from "../../../services/api";
 import { useState, useEffect } from "react";
 
 export function PageCadastroProd() {
+  const [codigo, setCod] = useState("");
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
@@ -34,8 +35,16 @@ export function PageCadastroProd() {
 
   const navigate = useNavigate();
 
+ 
+
   async function handleCadastrar() {
+
+    if(!codigo) {
+      return alert("Campo de código obrigatorio!")
+    }
+
     const formData = new FormData();
+    formData.append("codigo", codigo);
     formData.append("title", name);
     formData.append("category", category);
     formData.append("brand", brand);
@@ -45,18 +54,18 @@ export function PageCadastroProd() {
     formData.append("price", price);
     formData.append("image", image);
 
-    await api
-      .post("/products", formData)
-      .catch((error) => {
-        if (error.response) {
-          alert(error.response.data.message);
-        } else {
-          alert("Erro ao cadastrar o produto!");
-        }
-      })
-      .then(alert("Produto cadastrado com sucesso!"));
-
+    try {
+      await api.post("/products", formData);
+      alert("Produto cadastrado com sucesso!");
     navigate("/");
+    } catch (error) {
+      if (error.response) {
+        alert(error.response.data.message);
+      } else {
+        alert("Erro ao cadastrar o produto!");
+      }
+    }
+
     return;
   }
 
@@ -111,9 +120,14 @@ export function PageCadastroProd() {
           </Foto>
           <Form>
             <div className="row1">
+            <InputField
+                placeholder="Código"
+                title="Código"
+                onChange={(e) => setCod(e.target.value)}
+              />
               <InputField
-                placeholder="teste"
-                title="Name"
+                placeholder="Nome"
+                title="Nome"
                 onChange={(e) => setName(e.target.value)}
               />
               <div className="selectField">
@@ -130,7 +144,10 @@ export function PageCadastroProd() {
                   ))}
                 </select>
               </div>
-              <div className="selectField">
+          
+            </div>
+            <div className="row3">
+            <div className="selectField">
                 <h1>Marca</h1>
                 <select
                   name="select"
@@ -144,16 +161,6 @@ export function PageCadastroProd() {
                   ))}
                 </select>
               </div>
-            </div>
-            <div className="row2">
-              <InputField
-                placeholder="teste"
-                title="Descrição"
-                onChange={(e) => setDescription(e.target.value)}
-              />
-            </div>
-
-            <div className="row3">
               <div className="selectField">
                 <h1>Tamanho</h1>
                 <select name="select" onChange={(e) => setSize(e.target.value)}>
@@ -173,10 +180,19 @@ export function PageCadastroProd() {
               />
               <InputField
                 placeholder="teste"
-                title="Preço por unidade"
+                title="Valor p/und"
                 onChange={(e) => setPrice(e.target.value)}
               />
             </div>
+            <div className="row2">
+              <InputField
+                placeholder="teste"
+                title="Descrição"
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+
+    
           </Form>
 
           <div className="row4">

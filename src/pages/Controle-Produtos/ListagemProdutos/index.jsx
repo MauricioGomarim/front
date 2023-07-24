@@ -45,8 +45,9 @@ export function ListagemProdutos() {
             </tr>
           </thead>
           <tbody>
-            {produtos.map((produto, index) => (
-              <tr>
+      
+            {produtos.length > 0 ? produtos.map((produto, index) => (
+              <tr key={index}>
                 <td>
                   <div className="foto">
                     {produto.image ? (
@@ -67,7 +68,9 @@ export function ListagemProdutos() {
                   <Link to={`/editar-prod/${produto.id}`}>Editar</Link>
                 </td>
               </tr>
-            ))}
+            )) : (
+              <div>Nenhum produto encontrado.</div>
+            )}
           </tbody>
         </table>
       </Content>

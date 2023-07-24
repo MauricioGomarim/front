@@ -3,7 +3,6 @@ import styled from "styled-components"
 
 export const Container = styled.div`
   height: 100vh;
-
   display: grid;
   grid-template-columns: 250px auto;
   grid-template-rows: 105px 128px auto 64px;
@@ -16,9 +15,8 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   padding: 30px;
+  grid-area: content;
 `
-
-
 
 export const ContentForm = styled.div`
 padding: 30px;
@@ -76,7 +74,7 @@ export const Form = styled.form`
         height: 50px;
         font-size: 14px;
         font-weight: 400;
-        color: ${({ theme }) => theme.COLORS.GRAY_300};
+ 
         }
     }
     
@@ -126,7 +124,7 @@ export const Form = styled.form`
         height: 50px;
         font-size: 14px;
         font-weight: 400;
-        color: ${({ theme }) => theme.COLORS.GRAY_300};
+   
         }
     }
 
