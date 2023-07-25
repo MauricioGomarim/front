@@ -6,6 +6,7 @@ text-align: center;
 display: flex;
 align-items: center;
 justify-content: center;
+background-color: #F4EDE8;
 
 h1 {
     

@@ -11,36 +11,45 @@ import { Button } from "../../../components/Button";
 import { usePage } from "../../../hook/pages";
 import { api } from "../../../services/api";
 
+import {Search} from "../../../components/Search"
+
 import { useEffect, useState } from "react";
 
 export function ListagemProdutos() {
   const { page, setPage } = usePage();
   const [produtos, setProducts] = useState([""]);
+  const [search, setSearch] = useState([""]);
+
 
 
   useEffect(() => {
     async function fetchProducts() {
-      const response = await api.get(`/products?title=`);
+      const response = await api.get(`/products?title=${search}`);
       setProducts(response.data);
     }
     fetchProducts();
-  }, []);
+  }, [search]);
 
   return (
     <Container>
       <Menu />
       <Header />
       <Brand />
+      <Search onChange={(e) => setSearch(e.target.value)}/>
       <Content>
+
         <table>
           <thead>
             <tr>
+            <th style={{ width: "60px" }}>ID</th>
               <th style={{ width: "100px" }}>Imagem</th>
               <th style={{ width: "100px" }}>Código</th>
               <th>Nome</th>
-              <th style={{ width: "150px" }}>Preço</th>
-              <th style={{ width: "100px" }}>Tamanho</th>
-              <th style={{ width: "150px" }}>Quantidade</th>
+              <th style={{ width: "300px" }}>Descrição</th>
+
+              <th style={{ width: "100px" }}>Preço</th>
+              <th style={{ width: "10px" }}>Tamanho</th>
+              <th style={{ width: "10px" }}>Quantidade</th>
               <th style={{ width: "150px" }}>Ação</th>
             </tr>
           </thead>
@@ -48,6 +57,7 @@ export function ListagemProdutos() {
       
             {produtos.length > 0 ? produtos.map((produto, index) => (
               <tr key={index}>
+                <td>00{produto.id}</td>
                 <td>
                   <div className="foto">
                     {produto.image ? (
@@ -59,8 +69,9 @@ export function ListagemProdutos() {
                     )}
                   </div>
                 </td>
-                <td>000{produto.id}</td>
+                <td>{produto.codigo}</td>
                 <td>{produto.title}</td>
+                <td>{produto.description}</td>
                 <td>R$ {produto.price}</td>
                 <td>{produto.size}</td>
                 <td>{produto.amount}</td>

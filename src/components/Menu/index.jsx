@@ -79,13 +79,13 @@ export function Menu({ page, setPage, ...rest }) {
               className={page === "cadastroMarca" ? "Active" : " "}
               onClick={() => setPage("cadastroMarca")}
             >
-              Cadastrar marca
+              <Link to="/cadastro-marca">Cadastrar produto</Link>
             </li>
             <li
               className={page === "VerMarca" ? "Active" : " "}
               onClick={() => setPage("VerMarca")}
             >
-              Ver marcas
+              <Link to="/marcas">Ver marcas</Link>
             </li>
           </ul>
         </div>
@@ -121,13 +121,13 @@ export function Menu({ page, setPage, ...rest }) {
               className={page === "cadastroCategoria" ? "Active" : " "}
               onClick={() => setPage("cadastroCategoria")}
             >
-              Cadastrar marca
+              <Link to="/cadastro-categoria">Cadastrar categoria</Link>
             </li>
             <li
               className={page === "VerCategoria" ? "Active" : " "}
               onClick={() => setPage("VerCategoria")}
             >
-              Ver marcas
+              <Link to="/categorias">Cadastrar produto</Link>
             </li>
           </ul>
         </div>

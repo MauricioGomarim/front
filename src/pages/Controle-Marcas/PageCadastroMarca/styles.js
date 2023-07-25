@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export const Container = styled.div`
+export const ContentForm = styled.div`
 padding: 30px;
 display: flex;
 flex-wrap: wrap;
@@ -47,3 +47,15 @@ export const Form = styled.form`
     }
 
 `
+
+export const Container = styled.div`
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 250px auto;
+  grid-template-rows: 105px 128px auto 64px;
+  grid-template-areas:
+    "brand header"
+    "menu content"
+    "menu content"
+    "AdicionarProd desenvolvidoPor";
+`;

@@ -12,7 +12,7 @@ import { api } from "../../../services/api";
 
 import { useEffect, useState } from "react";
 
-export function ListagemMarcas() {
+export function ListagemCategoria() {
   const { page, setPage } = usePage();
   const [brands, setBrands] = useState([""]);
   function handleSetPage() {
@@ -37,7 +37,7 @@ export function ListagemMarcas() {
         <table>
           <thead>
             <tr>
-              <th style={{ width: "100px" }}>Marcas</th>
+              <th style={{ width: "100px" }}>Categorias</th>
               <th style={{ width: "100px" }}>Ação</th>
             </tr>
           </thead>

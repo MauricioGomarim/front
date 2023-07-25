@@ -5,15 +5,7 @@ import { Menu } from "../../components/Menu";
 import { ButtonAddProd } from "../../components/ButtonAddProd";
 import { Dashboard } from "../../components/Dashboard";
 import { useState, useEffect } from "react";
-import { PageCadastroProd } from "../Controle-Produtos/PageCadastroProd";
-import { PageCadastroMarca } from "../Controle-Marcas/PageCadastroMarca";
-import { PageCadastroCategoria } from "../Controle-Categoria/PageCadastroCategoria";
 
-import { ListagemProdutos } from "../Controle-Produtos/ListagemProdutos";
-import { PageEditarProd } from "../Controle-Produtos/PageEditarProd";
-
-import { ListagemMarcas } from "../Controle-Marcas/ListagemMarcas";
-import { ListagemCategoria } from "../Controle-Categoria/ListagemCategoria";
 
 
 import { usePage } from "../../hook/pages";

@@ -35,6 +35,8 @@ export function PageEditarProd() {
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
 
+  const navigate = useNavigate();
+
 
    const urlFormated =  avatar ? `${api.defaults.baseURL}/files/${avatar}` : foto;
 
@@ -65,6 +67,19 @@ export function PageEditarProd() {
     return;
   }
 
+  async function handleExcluir() {
+    try {
+      await api.delete(`/products/${id}`);
+      alert("Produto excluído com sucesso!");
+      navigate("/produtos")
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.message) {
+        alert(error.response.data.message);
+      } else {
+        alert("Erro ao excluir o produto!");
+      }
+    }
+  }
 
   async function handleChangeAvatar(event) {
     const file = event.target.files[0];
@@ -222,18 +237,19 @@ export function PageEditarProd() {
               />
             </div>
             <div className="row2">
-              <InputField
-                placeholder="teste"
-                title="Descrição"
+            <h1>Descrição</h1>
+              <textarea
+                placeholder="Descrição"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-              />
+              ></textarea>
             </div>
 
     
           </Form>
 
           <div className="row4">
+          <Button title="Excluir" onClick={handleExcluir} />
             <Button title="Cadastrar" onClick={handleCadastrar} />
           </div>
         </ContentForm>

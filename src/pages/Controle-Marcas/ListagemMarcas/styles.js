@@ -1,6 +1,23 @@
 import styled from "styled-components";
 
+
+
 export const Container = styled.div`
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 250px auto;
+  grid-template-rows: 105px 128px auto 64px;
+  grid-template-areas:
+    "brand header"
+    "menu content"
+    "menu content"
+    "AdicionarProd desenvolvidoPor";
+`;
+
+export const ContentForm = styled.div`
+
+grid-area:content;
+
   table {
     width: 50%;
     padding-left: 20px;

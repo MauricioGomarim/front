@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Content = styled.div`
   overflow-y: auto;
-  height: 75vh;
 
   table {
     width: 100%;
@@ -64,13 +63,14 @@ export const Content = styled.div`
 
 export const Container = styled.div`
   height: 100vh;
-  overflow: hidden;
+
   display: grid;
   grid-template-columns: 250px auto;
-  grid-template-rows: 105px 128px auto 64px;
+  grid-template-rows: 105px 80px auto 64px;
   grid-template-areas:
     "brand header"
-    "menu content"
+    "menu search"
     "menu content"
     "AdicionarProd desenvolvidoPor";
     `
+

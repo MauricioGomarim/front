@@ -1,4 +1,10 @@
-import { Container, Form } from "./styles";
+import { Menu } from "../../../components/Menu";
+import { Brand } from "../../../components/Brand";
+import { Header } from "../../../components/Header";
+import { ButtonAddProd } from "../../../components/ButtonAddProd";
+import { DesenvolvidoPor } from "../../../components/DesenvolvidoPor";
+
+import { ContentForm, Form, Container } from "./styles";
 import { InputField } from "../../../components/InputField/index";
 import { Button } from "../../../components/Button";
 import { useNavigate } from "react-router-dom";
@@ -12,13 +18,11 @@ export function PageCadastroMarca() {
   const navigate = useNavigate();
 
   async function handleCadastrar() {
-
     try {
-      await api
-      .post("/brand", { marca });
-     
+      await api.post("/brand", { marca });
+
       alert("Marca cadastrada com sucesso!");
-      return
+      return;
     } catch (error) {
       if (error.response) {
         return alert(error.response.data.message);
@@ -29,18 +33,22 @@ export function PageCadastroMarca() {
   }
 
   return (
-    <>
-      <h1
-        style={{
-          paddingLeft: "30px",
-          marginTop: "20px",
-          color: "black",
-          fontSize: "30px",
-        }}
-      >
-        Cadastrar marcas
-      </h1>
-      <Container>
+    <Container>
+      <Brand />
+      <Menu />
+      <Header />
+
+      <ContentForm>
+        <h1
+          style={{
+            marginTop: "20px",
+            marginBottom: "20px",
+            color: "black",
+            fontSize: "30px",
+          }}
+        >
+          Cadastrar marca
+        </h1>
         <Form>
           <div className="row2">
             <InputField
@@ -56,7 +64,10 @@ export function PageCadastroMarca() {
             />
           </div>
         </Form>
-      </Container>
-    </>
+      </ContentForm>
+      <ButtonAddProd />
+
+      <DesenvolvidoPor />
+    </Container>
   );
 }
