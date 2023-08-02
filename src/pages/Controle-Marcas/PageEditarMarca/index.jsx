@@ -7,17 +7,19 @@ import { DesenvolvidoPor } from "../../../components/DesenvolvidoPor";
 import { ContentForm, Form, Container } from "./styles";
 import { InputField } from "../../../components/InputField/index";
 import { Button } from "../../../components/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams  } from "react-router-dom";
 import { api } from "../../../services/api";
 
 import { useState, useEffect } from "react";
 
-export function PageCadastroCategoria() {
+export function PageEditarMarca() {
   const [marca, setMarca] = useState("");
 
+
+  const { id } = useParams();
   const navigate = useNavigate();
 
-  async function handleCadastrar() {
+  async function handleEditar() {
     try {
       await api.post("/brand", { marca });
 
@@ -31,6 +33,15 @@ export function PageCadastroCategoria() {
       }
     }
   }
+
+
+  useEffect(() => {
+    async function fetchBrands() {
+      const response = await api.get(`/brand/${id}`);
+      setMarca(response.data);
+    }
+    fetchBrands();
+  }, []);
 
   return (
     <Container>
@@ -47,17 +58,18 @@ export function PageCadastroCategoria() {
             fontSize: "30px",
           }}
         >
-          Cadastrar categoria
+          Editar marca
         </h1>
         <Form>
           <div className="row2">
             <InputField
-              title="Categoria"
+              title="Marca"
+              value={marca.title}
               onChange={(e) => setMarca(e.target.value)}
             />
             <Button
-              title="Cadastrar"
-              onClick={handleCadastrar}
+              title="Editar"
+              onClick={handleEditar}
               type="button"
               style={{ marginTop: "auto" }}
             />

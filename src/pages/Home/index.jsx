@@ -2,7 +2,7 @@ import { Container, Content } from "./styles";
 import { Header } from "../../components/Header";
 import { Brand } from "../../components/Brand";
 import { Menu } from "../../components/Menu";
-import { ButtonAddProd } from "../../components/ButtonAddProd";
+import { Caixa } from "../../components/Caixa";
 import { Dashboard } from "../../components/Dashboard";
 import { useState, useEffect } from "react";
 
@@ -21,7 +21,7 @@ export function Home() {
       <Header />
       <Menu page={page} setPage={setPage} />
       <Content>Dash</Content>
-      <ButtonAddProd />
+      <Caixa />
     </Container>
   );
 }

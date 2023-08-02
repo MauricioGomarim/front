@@ -36,6 +36,16 @@ grid-area:content;
     padding-left: 10px;
   }
 
+  table td a {
+    color:${({ theme }) => theme.COLORS.BASE};
+    background-color: ${({ theme }) => theme.COLORS.BASE_100};
+    padding:10px 30px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+
+
+
   table thead {
     border: 1px solid red;
     background-color: ${({ theme }) => theme.COLORS.BASE};
@@ -56,6 +66,11 @@ grid-area:content;
 
     button {
       font-size: 17px;
+    }
+
+    .action {
+      display: flex;
+      gap: 20px;
     }
   }
 

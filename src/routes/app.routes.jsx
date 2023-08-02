@@ -6,10 +6,15 @@ import { PageCadastroProd } from '../pages/Controle-Produtos/PageCadastroProd'
 import { ListagemProdutos } from '../pages/Controle-Produtos/ListagemProdutos'
 
 import { PageCadastroMarca } from '../pages/Controle-Marcas/PageCadastroMarca'
+import { PageEditarMarca } from '../pages/Controle-Marcas/PageEditarMarca'
 import { ListagemMarcas } from '../pages/Controle-Marcas/ListagemMarcas'
 
 import { PageCadastroCategoria } from '../pages/Controle-Categorias/PageCadastroCategoria'
-import { ListagemCategoria } from '../pages/Controle-Categorias/ListagemCategorias'
+import { PageEditarCategoria } from '../pages/Controle-Categorias/PageEditarCategoria'
+import { ListagemCategorias } from '../pages/Controle-Categorias/ListagemCategorias'
+
+import { PageCaixa } from '../pages/Controle-Caixa/PageCaixa'
+
 
 
 
@@ -24,10 +29,15 @@ export function AppRoutes(){
             <Route path="/produtos" element={<ListagemProdutos />} />
 
             <Route path="/cadastro-marca" element={<PageCadastroMarca />} />
+            <Route path="/editar-marca/:id" element={<PageEditarMarca />} />
             <Route path="/marcas" element={<ListagemMarcas />} />
 
+            <Route path="/editar-categoria/:id" element={<PageEditarCategoria />} />
             <Route path="/cadastro-categoria" element={<PageCadastroCategoria />} />
-            <Route path="/categorias" element={<ListagemCategoria />} />
+            <Route path="/categorias" element={<ListagemCategorias />} />
+
+            <Route path="/caixa" element={<PageCaixa />} />
+
 
 
 

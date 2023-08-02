@@ -4,7 +4,7 @@ import { Button } from "../../../components/Button";
 import { Menu } from "../../../components/Menu";
 import { Brand } from "../../../components/Brand";
 import { Header } from "../../../components/Header";
-import { ButtonAddProd } from "../../../components/ButtonAddProd";
+import { Caixa } from "../../../components/Caixa";
 import { DesenvolvidoPor } from "../../../components/DesenvolvidoPor";
 
 import { api } from "../../../services/api";
@@ -31,6 +31,8 @@ export function PageEditarProd() {
   const [price, setPrice] = useState("");
   const [image, setImage] = useState(null);
   const [avatar, setAvatar] = useState(null);
+  const [blob, setBlob] = useState(null);
+
 
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -38,7 +40,18 @@ export function PageEditarProd() {
   const navigate = useNavigate();
 
 
-   const urlFormated =  avatar ? `${api.defaults.baseURL}/files/${avatar}` : foto;
+  let urlFormated;
+  if(avatar){
+    urlFormated = `${api.defaults.baseURL}/files/${avatar}`
+  } 
+  if (blob) {
+    urlFormated = blob;
+  }
+  if (!avatar && !blob) {
+    urlFormated = foto;
+  }
+
+  
 
   async function handleCadastrar() {
 
@@ -86,7 +99,7 @@ export function PageEditarProd() {
     setImage(file);
 
     const fileName = URL.createObjectURL(file);
-    setAvatar(fileName);
+    setBlob(fileName);
   }
 
   useEffect(() => {
@@ -255,7 +268,7 @@ export function PageEditarProd() {
         </ContentForm>
       </Content>
 
-      <ButtonAddProd />
+      <Caixa />
       <DesenvolvidoPor />
     </Container>
   );

@@ -127,7 +127,7 @@ export function Menu({ page, setPage, ...rest }) {
               className={page === "VerCategoria" ? "Active" : " "}
               onClick={() => setPage("VerCategoria")}
             >
-              <Link to="/categorias">Cadastrar produto</Link>
+              <Link to="/categorias">Ver categorias</Link>
             </li>
           </ul>
         </div>

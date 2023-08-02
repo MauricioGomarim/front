@@ -2,7 +2,7 @@ import { Menu } from "../../../components/Menu";
 import { Brand } from "../../../components/Brand";
 import { Header } from "../../../components/Header";
 import {DesenvolvidoPor} from "../../../components/DesenvolvidoPor"
-import { ButtonAddProd } from "../../../components/ButtonAddProd";
+import { Caixa } from "../../../components/Caixa";
 
 import { Link } from "react-router-dom";
 import { Content, Container } from "./styles";
@@ -77,6 +77,7 @@ export function ListagemProdutos() {
                 <td>{produto.amount}</td>
                 <td>
                   <Link to={`/editar-prod/${produto.id}`}>Editar</Link>
+
                 </td>
               </tr>
             )) : (
@@ -85,7 +86,7 @@ export function ListagemProdutos() {
           </tbody>
         </table>
       </Content>
-      <ButtonAddProd />
+      <Caixa />
       <DesenvolvidoPor />
     </Container>
   );

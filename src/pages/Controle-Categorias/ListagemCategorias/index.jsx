@@ -1,29 +1,47 @@
 import { Menu } from "../../../components/Menu";
 import { Brand } from "../../../components/Brand";
 import { Header } from "../../../components/Header";
-import { ButtonAddProd } from "../../../components/ButtonAddProd";
+import { Caixa } from "../../../components/Caixa";
 import { DesenvolvidoPor } from "../../../components/DesenvolvidoPor";
+
+import { Link } from "react-router-dom";
 
 import { ContentForm, Container } from "./styles";
 import foto from "../../../assets/brand.jpeg";
 import { Button } from "../../../components/Button";
 import { usePage } from "../../../hook/pages";
 import { api } from "../../../services/api";
-
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-export function ListagemCategoria() {
+export function ListagemCategorias() {
   const { page, setPage } = usePage();
-  const [brands, setBrands] = useState([""]);
+  const [categories, setCategories] = useState([""]);
+
+  const navigate = useNavigate();
+
   function handleSetPage() {
     setPage("Editar");
     return;
   }
 
+  async function handleDelete(id){
+    try {
+      await api.delete(`/brand/${id}`);
+      setBrands(brands.filter(brand => brand.id !== id));
+      alert("Cadastrado !")
+      return
+    } catch (error) {
+      alert(error)
+    }
+ 
+    return
+  }
+
   useEffect(() => {
     async function fetchBrands() {
-      const response = await api.get(`/brand?title=`);
-      setBrands(response.data);
+      const response = await api.get(`/category`);
+      setCategories(response.data);
     }
     fetchBrands();
   }, []);
@@ -37,20 +55,23 @@ export function ListagemCategoria() {
         <table>
           <thead>
             <tr>
-              <th style={{ width: "100px" }}>Categorias</th>
+              <th style={{ width: "100px" }}>Marcas</th>
               <th style={{ width: "100px" }}>Ação</th>
             </tr>
           </thead>
           <tbody>
-            {brands.map((brand) => (
-              <tr>
-                <td>{brand.title}</td>
+            {categories.map((categorie, index) => (
+              <tr key={index}>
+                <td>{categorie.title}</td>
                 <td>
-                  <Button
-                    title="Editar"
-                    style={{ fontSize: "10px" }}
-                    onClick={handleSetPage}
-                  />
+                  <div className="action">
+                    <Button
+                      title="Excluir"
+                      style={{ fontSize: "10px" }}
+                      onClick={() => handleDelete(categorie.id)}
+                    />
+                    <Link to={`/editar-categoria/${categorie.id}`}>Editar</Link>
+                  </div>
                 </td>
               </tr>
             ))}
@@ -58,7 +79,7 @@ export function ListagemCategoria() {
         </table>
       </ContentForm>
 
-      <ButtonAddProd />
+      <Caixa />
       <DesenvolvidoPor />
     </Container>
   );

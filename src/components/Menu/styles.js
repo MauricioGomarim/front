@@ -4,6 +4,7 @@ export const Container = styled.div`
   background-color: ${({ theme }) => theme.COLORS.BASE};
   padding: 20px;
   grid-area: menu;
+  border-right: 1px solid white;
 
   ul {
     margin-top: 10px;

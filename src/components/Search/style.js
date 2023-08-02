@@ -6,7 +6,6 @@ justify-content: center;
 align-items: center;
 background-color: ${({ theme }) => theme.COLORS.BASE};
 padding: 20px 0;
-grid-area: search;
 
 
 

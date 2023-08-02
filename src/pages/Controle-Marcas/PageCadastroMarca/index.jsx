@@ -1,7 +1,7 @@
 import { Menu } from "../../../components/Menu";
 import { Brand } from "../../../components/Brand";
 import { Header } from "../../../components/Header";
-import { ButtonAddProd } from "../../../components/ButtonAddProd";
+import { Caixa } from "../../../components/Caixa";
 import { DesenvolvidoPor } from "../../../components/DesenvolvidoPor";
 
 import { ContentForm, Form, Container } from "./styles";
@@ -65,7 +65,7 @@ export function PageCadastroMarca() {
           </div>
         </Form>
       </ContentForm>
-      <ButtonAddProd />
+      <Caixa />
 
       <DesenvolvidoPor />
     </Container>

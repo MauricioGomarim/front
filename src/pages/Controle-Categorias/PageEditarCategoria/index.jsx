@@ -7,30 +7,41 @@ import { DesenvolvidoPor } from "../../../components/DesenvolvidoPor";
 import { ContentForm, Form, Container } from "./styles";
 import { InputField } from "../../../components/InputField/index";
 import { Button } from "../../../components/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams  } from "react-router-dom";
 import { api } from "../../../services/api";
 
 import { useState, useEffect } from "react";
 
-export function PageCadastroCategoria() {
-  const [marca, setMarca] = useState("");
+export function PageEditarCategoria() {
+  const [categoria, setCategoria] = useState("");
 
+
+  const { id } = useParams();
   const navigate = useNavigate();
 
-  async function handleCadastrar() {
+  async function handleEditar() {
     try {
-      await api.post("/brand", { marca });
+      await api.put(`/category/${id}`, { categoria });
 
-      alert("Marca cadastrada com sucesso!");
+      alert("Categoria cadastrada com sucesso!");
       return;
     } catch (error) {
       if (error.response) {
         return alert(error.response.data.message);
       } else {
-        return alert("Erro ao cadastrar essa marca!");
+        return alert("Erro ao cadastrar essa categoria!");
       }
     }
   }
+
+
+  useEffect(() => {
+    async function fetchBrands() {
+      const response = await api.get(`/category/${id}`);
+      setCategoria(response.data);
+    }
+    fetchBrands();
+  }, []);
 
   return (
     <Container>
@@ -47,17 +58,19 @@ export function PageCadastroCategoria() {
             fontSize: "30px",
           }}
         >
-          Cadastrar categoria
+          Editar marca
         </h1>
         <Form>
           <div className="row2">
             <InputField
-              title="Categoria"
-              onChange={(e) => setMarca(e.target.value)}
+              placeholder="Marca"
+              title="Marca"
+              value={categoria.title}
+              onChange={(e) => setCategoria(e.target.value)}
             />
             <Button
-              title="Cadastrar"
-              onClick={handleCadastrar}
+              title="Editar"
+              onClick={handleEditar}
               type="button"
               style={{ marginTop: "auto" }}
             />
