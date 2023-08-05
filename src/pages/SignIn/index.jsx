@@ -1,3 +1,6 @@
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { Container, Logo, Form, Content } from "./styles";
 import { InputField } from "../../components/InputField";
 import { Button } from "../../components/Button";
@@ -35,6 +38,7 @@ function handleSignIn() {
           <Button title="Entrar" colorButton="white" colorFont="052E59" type="button" onClick={handleSignIn}/>
         </Form>
       </Content>
+      <ToastContainer />
     </Container>
   );
 }

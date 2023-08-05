@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { createContext } from "react";
-import { Navigate } from "react-router-dom";
+
+import { toast } from 'react-toastify';
 
 import { api } from "../services/api";
 export const AuthContext = createContext({});
@@ -8,27 +9,49 @@ export const AuthContext = createContext({});
 function AuthProvider({ children }) {
   const [data, setData] = useState({});
 
-
   async function signIn({ email, password }) {
     try {
       const response = await api.post("/sessions", { email, password });
 
       const { user, token } = response.data;
 
+
+
       localStorage.setItem("@sistema-produtos:user", JSON.stringify(user));
       localStorage.setItem("@sistema-produtos:token", token);
 
+  
       setData({ user, token });
 
       //Adicionando o token do tipo bearer de authorization por padrão de todas requisições
       api.defaults.headers.authorization = `Bearer ${token}`;
-      console.log(data)
+
+   
 
     } catch (error) {
       if (error.response) {
-        alert(error.response.data.message);
+
+        toast.error(error.response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       } else {
-        alert("Não foi possível logar!");
+        toast.error("Não foi possivel logar..", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       }
     }
   }
@@ -37,7 +60,6 @@ function AuthProvider({ children }) {
     localStorage.removeItem("@sistema-produtos:token");
     localStorage.removeItem("@sistema-produtos:user");
     setData({});
-    <Navigate to = "/" />
     return
   }
 

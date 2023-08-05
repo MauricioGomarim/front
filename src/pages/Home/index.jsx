@@ -3,6 +3,7 @@ import { Header } from "../../components/Header";
 import { Brand } from "../../components/Brand";
 import { Menu } from "../../components/Menu";
 import { Caixa } from "../../components/Caixa";
+import Swal from 'sweetalert2'
 import { Dashboard } from "../../components/Dashboard";
 import { useState, useEffect } from "react";
 
@@ -22,6 +23,7 @@ export function Home() {
       <Menu page={page} setPage={setPage} />
       <Content>Dash</Content>
       <Caixa />
+      
     </Container>
   );
 }

@@ -2,11 +2,20 @@ import { Container, IconLogout, InfosUser } from "./styles";
 import imgPlaceholder from "../../assets/download.jpg";
 import { BiLogOut } from "react-icons/bi";
 
+import { useNavigate } from "react-router-dom";
+
 import { useAuth } from "../../hook/auth";
 
 export function Header() {
   const { user, Logout } = useAuth();
 
+  const navigate = useNavigate();
+
+  function handleLogout(){
+    Logout();
+    navigate("/")
+
+  }
   return (
     <Container>
       <InfosUser>
@@ -17,7 +26,7 @@ export function Header() {
         </div>
       </InfosUser>
 
-      <IconLogout onClick={Logout} >
+      <IconLogout onClick={handleLogout} >
         <BiLogOut />
       </IconLogout>
     </Container>

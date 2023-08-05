@@ -16,7 +16,7 @@ import {Search} from "../../../components/Search"
 import { useEffect, useState } from "react";
 
 export function ListagemProdutos() {
-  const { page, setPage } = usePage();
+
   const [produtos, setProducts] = useState([""]);
   const [search, setSearch] = useState([""]);
 

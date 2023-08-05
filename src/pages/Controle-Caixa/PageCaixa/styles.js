@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Content = styled.div`
 
   display: flex;
+  grid-area: content;
 
   .content-1 {
     width: 50%;
@@ -12,7 +13,7 @@ export const Content = styled.div`
       display: flex;
       justify-content: space-between;
       align-items: end;
-      height: 70vh;
+      height: 84vh;
 
       h1 {
         color: black;
@@ -22,15 +23,30 @@ export const Content = styled.div`
 
   .content-2 {
     width: 50%;
-    height: 75vh;
-    overflow-y: auto;
+    height: 85vh;
+    overflow: hidden;
+    background-color: #e5f0fb;
 
-    
+    .table-prod {
+      height: 65vh;
+    overflow-y: auto;
+    }
+
+    .nenhum-produto{
+      color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+
+
     table {
     width: 100%;
     font-weight: 700;
     font-size: 16px;
     color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
+
     overflow: hidden;
     white-space: nowrap;
     
@@ -46,6 +62,10 @@ export const Content = styled.div`
     border: 1px solid red;
     background-color: ${({ theme }) => theme.COLORS.BASE};
     color: ${({ theme }) => theme.COLORS.WHITE};
+  }
+
+  tbody h1 {
+    font-size: 25px;
   }
 
   tbody tr {

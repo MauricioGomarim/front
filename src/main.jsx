@@ -5,6 +5,9 @@ import { ThemeProvider } from "styled-components";
 import { PageProvider } from "./hook/pages";
 import { AuthProvider } from "./hook/auth";
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { Routes } from "./routes/index";
 
 import theme from "./styles/theme";
@@ -16,6 +19,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <AuthProvider>
         <PageProvider>
           <Routes />
+          <ToastContainer />
         </PageProvider>
       </AuthProvider>
     </ThemeProvider>
