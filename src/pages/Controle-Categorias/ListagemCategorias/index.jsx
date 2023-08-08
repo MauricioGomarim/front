@@ -27,9 +27,9 @@ export function ListagemCategorias() {
 
   async function handleDelete(id){
     try {
-      await api.delete(`/brand/${id}`);
-      setBrands(brands.filter(brand => brand.id !== id));
-      alert("Cadastrado !")
+      await api.delete(`/category/${id}`);
+      setCategories(categories.filter(categorie => categorie.id !== id));
+      alert("Categoria excluida com sucesso !")
       return
     } catch (error) {
       alert(error)

@@ -4,6 +4,7 @@ export const ContentForm = styled.div`
 padding: 30px;
 display: flex;
 flex-wrap: wrap;
+flex-direction: column;
 height: fit-content;
 
 .row4 {

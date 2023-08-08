@@ -5,6 +5,9 @@ export const Content = styled.div`
   display: flex;
   grid-area: content;
 
+  .hidden {
+    display: none;
+  }
   .content-1 {
     width: 50%;
     padding: 0 20px;
@@ -13,7 +16,7 @@ export const Content = styled.div`
       display: flex;
       justify-content: space-between;
       align-items: end;
-      height: 84vh;
+      height: 80vh;
 
       h1 {
         color: black;
@@ -23,10 +26,57 @@ export const Content = styled.div`
 
   .content-2 {
     width: 50%;
-    height: 85vh;
+    height: 82vh;
     overflow: hidden;
     background-color: #e5f0fb;
 
+    .busca {
+      display: flex;
+      width: 100%;
+
+      .content {
+        width: 90% !important;
+      }
+
+      .barra-cod {
+        width: 20%;
+      }
+
+      .barra-name {
+        width: 80%;
+        position: relative;
+
+        .result-search {
+        display: flex;
+        align-items: start;
+        flex-direction: column;
+        color: black;
+        background: white;
+        padding: 20px;
+        gap: 20px;
+        position: absolute;
+        top: 90%;
+        width: 95%;
+
+        h1 {
+          font-size: 23px;
+        }
+
+        a {
+          display: flex;
+          align-items: center;
+          gap: 30px;
+          width: 100%;
+        }
+        
+        img {
+          max-width: 80px;
+        }
+      }
+      }
+
+
+    }
     .table-prod {
       height: 65vh;
     overflow-y: auto;

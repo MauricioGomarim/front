@@ -29,7 +29,7 @@ export function ListagemMarcas() {
     try {
       await api.delete(`/brand/${id}`);
       setBrands(brands.filter(brand => brand.id !== id));
-      alert("Cadastrado !")
+      alert("Marca excluida com sucesso !")
       return
     } catch (error) {
       alert(error)

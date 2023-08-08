@@ -5,6 +5,7 @@ padding: 30px;
 display: flex;
 flex-wrap: wrap;
 height: fit-content;
+flex-direction: column;
 
 .row4 {
         display: flex;

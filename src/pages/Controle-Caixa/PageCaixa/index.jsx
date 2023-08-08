@@ -19,12 +19,16 @@ import { useEffect, useState } from "react";
 
 export function PageCaixa() {
   const [produtos, setProducts] = useState([]);
-  const [search, setSearch] = useState([""]);
+  const [searchCodigo, setSearchCodigo] = useState([""]);
+
+  const [searchNome, setSearchNome] = useState([""]);
+  const [produtosName, setSearchNomeModal] = useState([""]);
+
   const [total, setTotal] = useState(0);
 
   async function fetchProducts() {
     try {
-      const response = await api.get(`/products?codigo=${search}`);
+      const response = await api.get(`/products?codigo=${searchCodigo}`);
 
       updateProducts(response.data);
     } catch (error) {
@@ -33,6 +37,7 @@ export function PageCaixa() {
   }
 
   function updateProducts(newProducts) {
+    console.log(newProducts)
     setProducts((prevProducts) => {
       const updatedProducts = [...prevProducts];
 
@@ -61,16 +66,31 @@ export function PageCaixa() {
     });
   }
 
-  function notify() {}
+  const handleInsertProduto = (produto) => {
+    updateProducts(produto.data);
+    setSearchNome("");
+  }
 
-  const handleKeyPress = (event) => {
+  const handleKeyPressCodigo = (event) => {
     if (event.key === "Enter") {
       fetchProducts();
-      setSearch("");
+      setSearchCodigo("");
     }
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    async function fetchProductsName() {
+      try {
+        const response = await api.get(`/caixa?title=${searchNome}`);
+
+        setSearchNomeModal(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar produtos:", error);
+      }
+    }
+
+    fetchProductsName();
+  }, [searchNome]);
 
   return (
     <Container>
@@ -80,58 +100,88 @@ export function PageCaixa() {
 
       <Content>
         <div className="content-2">
-          <Search
-            placeholder="Digite o código do produto"
-            onChange={(e) => setSearch(e.target.value)}
-            onKeyPress={handleKeyPress}
-            value={search}
-          />
+          <div className="busca">
+            <div className="barra-cod">
+              <Search
+                placeholder="Código"
+                onChange={(e) => setSearchCodigo(e.target.value)}
+                onKeyPress={handleKeyPressCodigo}
+                value={searchCodigo}
+              />
+            </div>
+            <div className="barra-name">
+              <Search
+                placeholder="Nome do produto"
+                onChange={(e) => setSearchNome(e.target.value)}
+                value={searchNome}
+              />
 
-          <div className="table-prod">
-          {produtos.length ? (
-            produtos.map((produto, index) => (
-              <table>
-                <thead>
-                  <tr>
-                    <th> </th>
-                    <th>Imagem</th>
-                    <th>Código</th>
-                    <th>Nome</th>
-
-                    <th>Preço</th>
-                    <th>Tamanho</th>
-                    <th>Quantidade</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr key={index}>
-                    <td>{produto.vezes}x</td>
-                    <td>
-                      <div className="foto">
-                        {produto.image ? (
-                          <img
-                            src={`${api.defaults.baseURL}/files/${produto.image}`}
-                          />
-                        ) : (
+              {produtosName.length && (
+                <div className="result-search">
+                  {produtosName.length ? (
+                    produtosName.map((produto) => (
+                      <a onClick={() => handleInsertProduto(produto)}>
+                        <div class="img">
                           <img src={foto} />
-                        )}
-                      </div>
-                    </td>
-                    <td>{produto.codigo}</td>
-                    <td>{produto.title}</td>
-                    <td>{produto.price}</td>
-                    <td>{produto.size}</td>
-                    <td>{produto.amount}</td>
-                  </tr>
-                </tbody>
-              </table>
-            ))
-          ) : (
-            <div className="nenhum-produto"><h1>Nenhum produto por aqui...</h1></div>
-          )}
+                        </div>
+                        <div className="name-prod">
+                          <h1>{produto.title}</h1>
+                        </div>
+                      </a>
+                    ))
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
 
+          <div className="table-prod">
+            {produtos.length ? (
+              produtos.map((produto, index) => (
+                <table>
+                  <thead>
+                    <tr>
+                      <th> </th>
+                      <th>Imagem</th>
+                      <th>Código</th>
+                      <th>Nome</th>
 
+                      <th>Preço</th>
+                      <th>Tamanho</th>
+                      <th>Quantidade</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr key={index}>
+                      <td>{produto.vezes}x</td>
+                      <td>
+                        <div className="foto">
+                          {produto.image ? (
+                            <img
+                              src={`${api.defaults.baseURL}/files/${produto.image}`}
+                            />
+                          ) : (
+                            <img src={foto} />
+                          )}
+                        </div>
+                      </td>
+                      <td>{produto.codigo}</td>
+                      <td>{produto.title}</td>
+                      <td>{produto.price}</td>
+                      <td>{produto.size}</td>
+                      <td>{produto.amount}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              ))
+            ) : (
+              <div className="nenhum-produto">
+                <h1>Nenhum produto por aqui...</h1>
+              </div>
+            )}
+          </div>
         </div>
         <div className="content-1">
           <div className="finalize">
