@@ -21,14 +21,23 @@ export function PageCaixa() {
   const [produtos, setProducts] = useState([]);
   const [searchCodigo, setSearchCodigo] = useState([""]);
 
-  const [searchNome, setSearchNome] = useState([""]);
+  const [searchNome, setSearchNome] = useState("");
   const [produtosName, setSearchNomeModal] = useState([""]);
 
   const [total, setTotal] = useState(0);
 
-  async function fetchProducts() {
+  async function fetchProducts(codigo) {
+    console.log(produtosName);
     try {
-      const response = await api.get(`/products?codigo=${searchCodigo}`);
+      let response;
+
+      if (searchCodigo != "") {
+        response = await api.get(`/products?codigo=${searchCodigo}`);
+      }
+
+      if (searchNome != "") {
+        response = await api.get(`/products?codigo=${codigo}`);
+      }
 
       updateProducts(response.data);
     } catch (error) {
@@ -36,47 +45,43 @@ export function PageCaixa() {
     }
   }
 
-  function updateProducts(newProducts) {
-    console.log(newProducts)
+  function updateProducts(newProduct) {
+    console.log(newProduct);
     setProducts((prevProducts) => {
       const updatedProducts = [...prevProducts];
-
-      newProducts.forEach((newProduct) => {
+      newProduct.forEach((newProductItem) => {
         const existingProductIndex = updatedProducts.findIndex(
-          (product) => product.codigo === newProduct.codigo
+          (product) => product.codigo === newProductItem.codigo
         );
 
         if (existingProductIndex === -1) {
-          updatedProducts.push({ ...newProduct, vezes: 1 });
+          updatedProducts.push({ ...newProductItem, vezes: 1 });
         } else {
           updatedProducts[existingProductIndex].vezes += 1;
         }
       });
 
-      return updatedProducts;
-    });
-
-    setTotal((prevTotal) => {
-      const newTotal = newProducts.reduce((accumulator, newProduct) => {
-        const productPrice = parseFloat(newProduct.price); // Converte o preço para número
-        return accumulator + productPrice;
+      const newTotal = updatedProducts.reduce((accumulator, product) => {
+        const productPrice = parseFloat(product.price);
+        return accumulator + productPrice * product.vezes;
       }, 0);
 
-      return prevTotal + newTotal;
+      setTotal(newTotal);
+      return updatedProducts;
     });
   }
 
   const handleInsertProduto = (produto) => {
-    updateProducts(produto.data);
+    fetchProducts(produto.codigo);
     setSearchNome("");
-  }
+  };
 
-  const handleKeyPressCodigo = (event) => {
+  function handleKeyPressCodigo(event) {
     if (event.key === "Enter") {
       fetchProducts();
       setSearchCodigo("");
     }
-  };
+  }
 
   useEffect(() => {
     async function fetchProductsName() {
@@ -88,7 +93,6 @@ export function PageCaixa() {
         console.error("Erro ao buscar produtos:", error);
       }
     }
-
     fetchProductsName();
   }, [searchNome]);
 
@@ -119,9 +123,12 @@ export function PageCaixa() {
               {produtosName.length && (
                 <div className="result-search">
                   {produtosName.length ? (
-                    produtosName.map((produto) => (
-                      <a onClick={() => handleInsertProduto(produto)}>
-                        <div class="img">
+                    produtosName.map((produto, index) => (
+                      <a
+                        key={index}
+                        onClick={() => handleInsertProduto(produto)}
+                      >
+                        <div className="img">
                           <img src={foto} />
                         </div>
                         <div className="name-prod">
@@ -130,7 +137,7 @@ export function PageCaixa() {
                       </a>
                     ))
                   ) : (
-                    <></>
+                    <div className="hidden"></div>
                   )}
                 </div>
               )}
@@ -138,22 +145,22 @@ export function PageCaixa() {
           </div>
 
           <div className="table-prod">
-            {produtos.length ? (
-              produtos.map((produto, index) => (
-                <table>
-                  <thead>
-                    <tr>
-                      <th> </th>
-                      <th>Imagem</th>
-                      <th>Código</th>
-                      <th>Nome</th>
+            <table>
+              <thead>
+                <tr>
+                  <th> </th>
+                  <th>Imagem</th>
+                  <th>Código</th>
+                  <th>Nome</th>
 
-                      <th>Preço</th>
-                      <th>Tamanho</th>
-                      <th>Quantidade</th>
-                    </tr>
-                  </thead>
-                  <tbody>
+                  <th>Preço</th>
+                  <th>Tamanho</th>
+                  <th>Quantidade</th>
+                </tr>
+              </thead>
+              <tbody>
+                {produtos.length ? (
+                  produtos.map((produto, index) => (
                     <tr key={index}>
                       <td>{produto.vezes}x</td>
                       <td>
@@ -173,14 +180,14 @@ export function PageCaixa() {
                       <td>{produto.size}</td>
                       <td>{produto.amount}</td>
                     </tr>
-                  </tbody>
-                </table>
-              ))
-            ) : (
-              <div className="nenhum-produto">
-                <h1>Nenhum produto por aqui...</h1>
-              </div>
-            )}
+                  ))
+                ) : (
+                  <tr className="nenhum-produto">
+                    <></>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
         <div className="content-1">

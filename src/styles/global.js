@@ -35,4 +35,8 @@ export default createGlobalStyle`
         border: none;
         outline: none;
     }
+
+    .hidden {
+        display: none !important;
+    }
 `
