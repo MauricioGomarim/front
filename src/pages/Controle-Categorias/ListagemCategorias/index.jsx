@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { Menu } from "../../../components/Menu";
 import { Brand } from "../../../components/Brand";
 import { Header } from "../../../components/Header";
@@ -29,13 +30,31 @@ export function ListagemCategorias() {
     try {
       await api.delete(`/category/${id}`);
       setCategories(categories.filter(categorie => categorie.id !== id));
-      alert("Categoria excluida com sucesso !")
-      return
+
+      return toast.success('Categoria excluida com sucesso !', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+      
     } catch (error) {
-      alert(error)
+      return toast.error(error, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
     }
  
-    return
   }
 
   useEffect(() => {

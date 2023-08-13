@@ -1,3 +1,5 @@
+
+import { toast } from 'react-toastify';
 import { ContentForm, Content , Form, Foto, Container } from "./styles";
 import { InputField } from "../../../components/InputField";
 import { Button } from "../../../components/Button";
@@ -53,9 +55,10 @@ export function PageEditarProd() {
 
   
 
-  async function handleCadastrar() {
+  async function handleEditar() {
 
     const formData = new FormData();
+    formData.append("codigo", codigo);
     formData.append("title", title);
     formData.append("category", category);
     formData.append("brand", brand);
@@ -69,27 +72,84 @@ export function PageEditarProd() {
       .put(`/products/${id}`, formData)
       .catch((error) => {
         if (error.response) {
-          alert(error.response.data.message);
+          toast.error(error.response.data.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
         } else {
-          alert("Erro ao editar o produto!");
+          toast.error("Erro ao editar o produto!", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
         }
       })
-      .then(alert("Produto editado com sucesso!"));
+      .then(toast.success("Produto editado com sucesso!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        }));
 
-    navigate("/");
+    navigate("/produtos");
     return;
   }
 
   async function handleExcluir() {
     try {
       await api.delete(`/products/${id}`);
-      alert("Produto excluído com sucesso!");
+
+      toast.success("Produto excluído com sucesso!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
       navigate("/produtos")
     } catch (error) {
       if (error.response && error.response.data && error.response.data.message) {
         alert(error.response.data.message);
+        toast.warning(error.response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       } else {
-        alert("Erro ao excluir o produto!");
+        alert("");
+        toast.warning("Erro ao excluir o produto!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       }
     }
   }
@@ -188,7 +248,7 @@ export function PageEditarProd() {
               <InputField
                 placeholder="Nome"
                 title="Nome"
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => setTitle(e.target.value)}
                 value={title}
               />
               <div className="selectField">
@@ -263,7 +323,7 @@ export function PageEditarProd() {
 
           <div className="row4">
           <Button title="Excluir" onClick={handleExcluir} />
-            <Button title="Cadastrar" onClick={handleCadastrar} />
+            <Button title="Confirmar" onClick={handleEditar} />
           </div>
         </ContentForm>
       </Content>

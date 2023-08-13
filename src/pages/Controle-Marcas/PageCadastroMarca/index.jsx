@@ -1,3 +1,5 @@
+import React from 'react';
+import { toast } from 'react-toastify';
 import { Menu } from "../../../components/Menu";
 import { Brand } from "../../../components/Brand";
 import { Header } from "../../../components/Header";
@@ -20,14 +22,41 @@ export function PageCadastroMarca() {
   async function handleCadastrar() {
     try {
       await api.post("/brand", { marca });
-
-      alert("Marca cadastrada com sucesso!");
+      toast.success('Marca cadastrada com sucesso!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+        navigate("/marcas");
       return;
     } catch (error) {
       if (error.response) {
-        return alert(error.response.data.message);
+        toast.warn(error.response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       } else {
-        return alert("Erro ao cadastrar essa marca!");
+        return toast.error("Erro ao cadastrar essa marca!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       }
     }
   }

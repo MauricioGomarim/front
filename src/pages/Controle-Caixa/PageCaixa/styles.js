@@ -39,11 +39,11 @@ export const Content = styled.div`
       }
 
       .barra-cod {
-        width: 20%;
+        width: 30%;
       }
 
       .barra-name {
-        width: 80%;
+        width: 70%;
         position: relative;
 
         .result-search {
@@ -57,9 +57,11 @@ export const Content = styled.div`
         position: absolute;
         top: 90%;
         width: 95%;
+        max-height: 400px;
+    overflow-y: auto;
 
         h1 {
-          font-size: 23px;
+          font-size: 20px;
         }
 
         a {
@@ -67,10 +69,14 @@ export const Content = styled.div`
           align-items: center;
           gap: 30px;
           width: 100%;
+          border-bottom: 1px solid black;
         }
         
         img {
-          max-width: 80px;
+          width: 60px;
+          height: 60px;
+          object-fit: contain;
+        
         }
       }
       }

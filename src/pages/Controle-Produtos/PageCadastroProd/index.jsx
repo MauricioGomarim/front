@@ -1,3 +1,5 @@
+
+import { toast } from 'react-toastify';
 import { Menu } from "../../../components/Menu";
 import { Brand } from "../../../components/Brand";
 import { Header } from "../../../components/Header";
@@ -32,7 +34,16 @@ export function PageCadastroProd() {
 
   async function handleCadastrar() {
     if (!codigo) {
-      return alert("Campo de código obrigatorio!");
+      return toast.warn('Campo de código obrigatorio!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
     }
 
     const formData = new FormData();
@@ -48,13 +59,42 @@ export function PageCadastroProd() {
 
     try {
       await api.post("/products", formData);
-      alert("Produto cadastrado com sucesso!");
-      navigate("/");
+      toast.success('Produto cadastrado com sucesso!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+
+      navigate("/produtos");
     } catch (error) {
       if (error.response) {
-        alert(error.response.data.message);
+        toast.error(error.response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
+        
       } else {
-        alert("Erro ao cadastrar o produto!");
+        toast.error('Erro ao cadastrar o produto!', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       }
     }
 

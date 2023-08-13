@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { Menu } from "../../../components/Menu";
 import { Brand } from "../../../components/Brand";
 import { Header } from "../../../components/Header";
@@ -29,7 +30,17 @@ export function ListagemMarcas() {
     try {
       await api.delete(`/brand/${id}`);
       setBrands(brands.filter(brand => brand.id !== id));
-      alert("Marca excluida com sucesso !")
+
+      toast.success('Marca excluida com sucesso !', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
       return
     } catch (error) {
       alert(error)

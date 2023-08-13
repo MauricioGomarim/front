@@ -3,7 +3,7 @@ import { Brand } from "../../../components/Brand";
 import { Header } from "../../../components/Header";
 import {DesenvolvidoPor} from "../../../components/DesenvolvidoPor"
 import { Caixa } from "../../../components/Caixa";
-
+import {BiSearchAlt2} from "react-icons/bi"
 import { Link } from "react-router-dom";
 import { Content, Container } from "./styles";
 import foto from "../../../assets/placeholder-img.jpg";
@@ -35,7 +35,7 @@ export function ListagemProdutos() {
       <Menu />
       <Header />
       <Brand />
-      <Search onChange={(e) => setSearch(e.target.value)}/>
+      <Search icon={<BiSearchAlt2 />}onChange={(e) => setSearch(e.target.value)}/>
       <Content>
 
         <table>

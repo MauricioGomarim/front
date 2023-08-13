@@ -26,6 +26,16 @@ function AuthProvider({ children }) {
       //Adicionando o token do tipo bearer de authorization por padrão de todas requisições
       api.defaults.headers.authorization = `Bearer ${token}`;
 
+      toast.success("Logado com sucesso!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
    
 
     } catch (error) {

@@ -1,4 +1,5 @@
 import React from "react";
+import {BiSearchAlt2} from "react-icons/bi"
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -107,6 +108,7 @@ export function PageCaixa() {
           <div className="busca">
             <div className="barra-cod">
               <Search
+              icon={<BiSearchAlt2 />}
                 placeholder="Código"
                 onChange={(e) => setSearchCodigo(e.target.value)}
                 onKeyPress={handleKeyPressCodigo}
@@ -115,13 +117,14 @@ export function PageCaixa() {
             </div>
             <div className="barra-name">
               <Search
+              icon={<BiSearchAlt2 />}
                 placeholder="Nome do produto"
                 onChange={(e) => setSearchNome(e.target.value)}
                 value={searchNome}
               />
 
-              {produtosName.length && (
-                <div className="result-search">
+             
+                <div className={`result-search ${produtosName.length ? '' : 'hidden'}`}>
                   {produtosName.length ? (
                     produtosName.map((produto, index) => (
                       <a
@@ -129,7 +132,7 @@ export function PageCaixa() {
                         onClick={() => handleInsertProduto(produto)}
                       >
                         <div className="img">
-                          <img src={foto} />
+                          <img src={`${api.defaults.baseURL}/files/${produto.image}`} />
                         </div>
                         <div className="name-prod">
                           <h1>{produto.title}</h1>
@@ -137,10 +140,10 @@ export function PageCaixa() {
                       </a>
                     ))
                   ) : (
-                    <div className="hidden"></div>
+                    <></>
                   )}
                 </div>
-              )}
+              
             </div>
           </div>
 

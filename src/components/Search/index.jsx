@@ -3,11 +3,12 @@ import { Container } from "./style"
 import {BiSearchAlt2} from "react-icons/bi"
 
 
-export function Search({...rest}){
+export function Search({icon,...rest}){
     return (
-        <Container>
+        <Container >
             <div className="content">
-            <BiSearchAlt2 />
+        {icon}
+            
             <input placeholder="Procurar por produtos" {...rest}/>
             </div>
 

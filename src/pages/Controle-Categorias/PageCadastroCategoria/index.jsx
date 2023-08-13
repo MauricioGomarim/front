@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { Menu } from "../../../components/Menu";
 import { Brand } from "../../../components/Brand";
 import { Header } from "../../../components/Header";
@@ -13,21 +14,48 @@ import { api } from "../../../services/api";
 import { useState, useEffect } from "react";
 
 export function PageCadastroCategoria() {
-  const [marca, setMarca] = useState("");
+  const [category, setCategory] = useState("");
 
   const navigate = useNavigate();
 
   async function handleCadastrar() {
     try {
-      await api.post("/brand", { marca });
-
-      alert("Marca cadastrada com sucesso!");
+      await api.post("/category", { category });
+      toast.success('Categoria cadastrada com sucesso!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+        navigate('/categorias');
       return;
     } catch (error) {
       if (error.response) {
-        return alert(error.response.data.message);
+        return toast.warn(error.response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       } else {
-        return alert("Erro ao cadastrar essa marca!");
+        return toast.error('Erro ao cadastrar essa categoria!', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       }
     }
   }
@@ -53,7 +81,7 @@ export function PageCadastroCategoria() {
           <div className="row2">
             <InputField
               title="Categoria"
-              onChange={(e) => setMarca(e.target.value)}
+              onChange={(e) => setCategory(e.target.value)}
             />
             <Button
               title="Cadastrar"
