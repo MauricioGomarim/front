@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const Content = styled.div`
-
   display: flex;
   grid-area: content;
 
@@ -10,13 +9,15 @@ export const Content = styled.div`
   }
   .content-1 {
     width: 50%;
-    padding: 0 20px;
+    padding: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     .finalize {
       display: flex;
       justify-content: space-between;
       align-items: end;
-      height: 80vh;
 
       h1 {
         color: black;
@@ -47,48 +48,45 @@ export const Content = styled.div`
         position: relative;
 
         .result-search {
-        display: flex;
-        align-items: start;
-        flex-direction: column;
-        color: black;
-        background: white;
-        padding: 20px;
-        gap: 20px;
-        position: absolute;
-        top: 90%;
-        width: 95%;
-        max-height: 400px;
-    overflow-y: auto;
-
-        h1 {
-          font-size: 20px;
-        }
-
-        a {
           display: flex;
-          align-items: center;
-          gap: 30px;
-          width: 100%;
-          border-bottom: 1px solid black;
-        }
-        
-        img {
-          width: 60px;
-          height: 60px;
-          object-fit: contain;
-        
+          align-items: start;
+          flex-direction: column;
+          color: black;
+          background: white;
+          padding: 20px;
+          gap: 20px;
+          position: absolute;
+          top: 90%;
+          width: 95%;
+          max-height: 400px;
+          overflow-y: auto;
+
+          h1 {
+            font-size: 20px;
+          }
+
+          a {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            width: 100%;
+            border-bottom: 1px solid black;
+          }
+
+          img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+          }
         }
       }
-      }
-
-
     }
     .table-prod {
       height: 65vh;
-    overflow-y: auto;
+      overflow-y: auto;
     }
 
-    .nenhum-produto{
+    .nenhum-produto {
       color: black;
       display: flex;
       align-items: center;
@@ -96,71 +94,108 @@ export const Content = styled.div`
       height: 100%;
     }
 
-
     table {
-    width: 100%;
-    font-weight: 700;
-    font-size: 16px;
-    color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
+      width: 100%;
+      font-weight: 700;
+      font-size: 16px;
+      color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
 
-    overflow: hidden;
-    white-space: nowrap;
-    
-  }
+      overflow: hidden;
+      white-space: nowrap;
+    }
 
-  table th {
-    text-align: start;
-    border-bottom: 2px solid ${({ theme }) => theme.COLORS.BLUE_300};
-    padding-left: 10px;
-  }
+    table th {
+      text-align: start;
+      border-bottom: 2px solid ${({ theme }) => theme.COLORS.BLUE_300};
+      padding-left: 10px;
+    }
 
-  table thead {
-    border: 1px solid red;
-    background-color: ${({ theme }) => theme.COLORS.BASE};
-    color: ${({ theme }) => theme.COLORS.WHITE};
-  }
+    table thead {
+      border: 1px solid red;
+      background-color: ${({ theme }) => theme.COLORS.BASE};
+      color: ${({ theme }) => theme.COLORS.WHITE};
+    }
 
-  tbody h1 {
-    font-size: 25px;
-  }
+    tbody h1 {
+      font-size: 25px;
+    }
 
-  tbody tr {
-    max-height: 100px;
-  }
+    tbody tr {
+      max-height: 100px;
+    }
 
-  tbody tr:nth-child(odd){
-    background-color: ${({ theme }) => theme.COLORS.BASE_100};
-  }
+    tbody tr:nth-child(odd) {
+      background-color: ${({ theme }) => theme.COLORS.BASE_100};
+    }
 
-  tbody td {
-    padding-left: 10px;
-  }
+    tbody td {
+      padding-left: 10px;
+    }
 
-  tbody td .foto {
-    display: flex;
-    justify-content: center;
-  }
+    tbody td.icon-excluir {
+      display: flex;
+      justify-content: center;
+      margin-top: 35%;
+      padding: 0;
+      svg {
+        color: #ce0104;
+        font-size: 25px;
+      }
 
-  tbody td a {
-    color:${({ theme }) => theme.COLORS.BASE};
-    background-color: ${({ theme }) => theme.COLORS.BASE_100};
-    padding:10px 30px;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-  }
+      button {
+        background: none;
+        border: none;
+      }
+    }
 
-  tbody td a:hover {
-    background-color: ${({ theme }) => theme.COLORS.BASE};
-    color: ${({ theme }) => theme.COLORS.WHITE};
-  }
+    tbody td .foto {
+      display: flex;
+      justify-content: center;
+    }
 
-  tbody tr img {
-    max-height: 80px;
-  }
-  }
+    tbody td a {
+      color: ${({ theme }) => theme.COLORS.BASE};
+      background-color: ${({ theme }) => theme.COLORS.BASE_100};
+      padding: 10px 30px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
 
- 
+    tbody td a:hover {
+      background-color: ${({ theme }) => theme.COLORS.BASE};
+      color: ${({ theme }) => theme.COLORS.WHITE};
+    }
+
+    tbody tr img {
+      max-height: 80px;
+    }
+  }
 `;
+
+export const ContentForm = styled.div`
+  h1 {
+    font-size: 32px;
+    color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
+  }
+  p {
+    font-size: 23px;
+    font-weight: 700;
+    color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
+  }
+
+  .row1 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5%;
+    color: black;
+    font-weight: bold;
+    > div {
+      margin-bottom: 20px;
+    }
+  }
+`;
+
+export const Form = styled.form``;
 
 export const Container = styled.div`
   height: 100vh;
@@ -173,5 +208,4 @@ export const Container = styled.div`
     "menu content"
     "menu content"
     "AdicionarProd desenvolvidoPor";
-    `
-
+`;

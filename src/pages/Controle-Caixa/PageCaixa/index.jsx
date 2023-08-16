@@ -1,5 +1,9 @@
 import React from "react";
-import {BiSearchAlt2} from "react-icons/bi"
+import { ContentForm, Form } from "../PageCaixa/styles";
+
+import { BiSearchAlt2 } from "react-icons/bi";
+import { RiCloseCircleFill } from "react-icons/ri";
+
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -11,6 +15,7 @@ import { Caixa } from "../../../components/Caixa";
 import { Content, Container } from "./styles";
 import foto from "../../../assets/placeholder-img.jpg";
 import { Button } from "../../../components/Button";
+import { InputField } from "../../../components/InputField";
 
 import { api } from "../../../services/api";
 
@@ -28,7 +33,6 @@ export function PageCaixa() {
   const [total, setTotal] = useState(0);
 
   async function fetchProducts(codigo) {
-    console.log(produtosName);
     try {
       let response;
 
@@ -47,7 +51,6 @@ export function PageCaixa() {
   }
 
   function updateProducts(newProduct) {
-    console.log(newProduct);
     setProducts((prevProducts) => {
       const updatedProducts = [...prevProducts];
       newProduct.forEach((newProductItem) => {
@@ -84,6 +87,29 @@ export function PageCaixa() {
     }
   }
 
+  function handleRemoveProduct(product) {
+
+    setProducts((prevProducts) => {
+      const updatedProducts = [...prevProducts];
+      
+        const existingProductIndex = updatedProducts.findIndex(
+          (productPrevious) => productPrevious.codigo === product.codigo
+        );
+
+        if(updatedProducts[existingProductIndex].vezes <= 1){
+          console.log("zerou")
+          updatedProducts.splice(existingProductIndex, 1);
+        } else {
+          updatedProducts[existingProductIndex].vezes -= 1;
+        }
+
+      
+      const newTotal = total - product.price;
+      setTotal(newTotal);
+      return updatedProducts;
+    });
+  }
+
   useEffect(() => {
     async function fetchProductsName() {
       try {
@@ -108,7 +134,7 @@ export function PageCaixa() {
           <div className="busca">
             <div className="barra-cod">
               <Search
-              icon={<BiSearchAlt2 />}
+                icon={<BiSearchAlt2 />}
                 placeholder="Código"
                 onChange={(e) => setSearchCodigo(e.target.value)}
                 onKeyPress={handleKeyPressCodigo}
@@ -117,33 +143,38 @@ export function PageCaixa() {
             </div>
             <div className="barra-name">
               <Search
-              icon={<BiSearchAlt2 />}
+                icon={<BiSearchAlt2 />}
                 placeholder="Nome do produto"
                 onChange={(e) => setSearchNome(e.target.value)}
                 value={searchNome}
               />
 
-             
-                <div className={`result-search ${produtosName.length ? '' : 'hidden'}`}>
-                  {produtosName.length ? (
-                    produtosName.map((produto, index) => (
-                      <a
-                        key={index}
-                        onClick={() => handleInsertProduto(produto)}
-                      >
-                        <div className="img">
-                          <img src={`${api.defaults.baseURL}/files/${produto.image}`} />
-                        </div>
-                        <div className="name-prod">
-                          <h1>{produto.title}</h1>
-                        </div>
-                      </a>
-                    ))
-                  ) : (
-                    <></>
-                  )}
-                </div>
-              
+              <div
+                className={`result-search ${
+                  produtosName.length ? "" : "hidden"
+                }`}
+              >
+                {produtosName.length ? (
+                  produtosName.map((produto, index) => (
+                    <a key={index} onClick={() => handleInsertProduto(produto)}>
+                      <div className="img">
+                        <img
+                          src={
+                            produto.image
+                              ? `${api.defaults.baseURL}/files/${produto.image}`
+                              : foto
+                          }
+                        />
+                      </div>
+                      <div className="name-prod">
+                        <h1>{produto.title}</h1>
+                      </div>
+                    </a>
+                  ))
+                ) : (
+                  <></>
+                )}
+              </div>
             </div>
           </div>
 
@@ -151,14 +182,14 @@ export function PageCaixa() {
             <table>
               <thead>
                 <tr>
-                  <th> </th>
+                  <th>x</th>
                   <th>Imagem</th>
                   <th>Código</th>
                   <th>Nome</th>
-
                   <th>Preço</th>
                   <th>Tamanho</th>
                   <th>Quantidade</th>
+                  <th>Exluir</th>
                 </tr>
               </thead>
               <tbody>
@@ -182,6 +213,14 @@ export function PageCaixa() {
                       <td>{produto.price}</td>
                       <td>{produto.size}</td>
                       <td>{produto.amount}</td>
+                      <td className="icon-excluir">
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveProduct(produto)}
+                        >
+                          <RiCloseCircleFill />
+                        </button>
+                      </td>
                     </tr>
                   ))
                 ) : (
@@ -194,6 +233,30 @@ export function PageCaixa() {
           </div>
         </div>
         <div className="content-1">
+          <ContentForm>
+            <h1>Checkout</h1>
+            <p>Preencha os dados do cliente</p>
+            <Form>
+              <div className="row1">
+                <div className="w-50">
+                  Nome
+                  <InputField />
+                </div>
+                <div className="w-50">
+                  Whatsapp
+                  <InputField />
+                </div>
+                <div className="w-50">
+                  CPF
+                  <InputField />
+                </div>
+                <div className="w-50">
+                  Endereço
+                  <InputField />
+                </div>
+              </div>
+            </Form>
+          </ContentForm>
           <div className="finalize">
             <h1>Total: R${total}</h1>
             <Button title="Finalizar pedido" />

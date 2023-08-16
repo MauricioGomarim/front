@@ -239,18 +239,23 @@ export function PageEditarProd() {
           </Foto>
           <Form>
             <div className="row1">
+            <div className="w-30">
             <InputField
                 placeholder="Código"
                 title="Código"
                 onChange={(e) => setCod(e.target.value)}
                 value={codigo}
               />
-              <InputField
+            </div>
+            <div className="w-30">
+            <InputField
                 placeholder="Nome"
                 title="Nome"
                 onChange={(e) => setTitle(e.target.value)}
                 value={title}
               />
+            </div>
+             
               <div className="selectField">
                 <h1>Categoria</h1>
                 <select
@@ -296,18 +301,23 @@ export function PageEditarProd() {
                   <option value="GG">GG</option>
                 </select>
               </div>
+              <div className="w-30">
               <InputField
                 placeholder="teste"
                 title="Qtd"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
               />
+              </div>
+              <div className="w-30">
               <InputField
                 placeholder="teste"
                 title="Valor p/und"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
               />
+              </div>
+             
             </div>
             <div className="row2">
             <h1>Descrição</h1>

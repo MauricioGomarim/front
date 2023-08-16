@@ -151,17 +151,23 @@ export function PageCadastroProd() {
           </Foto>
           <Form>
             <div className="row1">
+              <div className="w-30">
               <InputField
                 placeholder="Código"
                 title="Código"
                 onChange={(e) => setCod(e.target.value)}
               />
+              </div>
+              <div className="w-30">
               <InputField
                 placeholder="Nome"
                 title="Nome"
                 onChange={(e) => setName(e.target.value)}
               />
-              <div className="selectField">
+              </div>
+
+              
+              <div className="selectField w-30">
                 <h1>Categoria</h1>
                 <select
                   name="select"
@@ -203,16 +209,21 @@ export function PageCadastroProd() {
                   <option value="GG">GG</option>
                 </select>
               </div>
+              <div className="w-30">
               <InputField
                 placeholder="teste"
                 title="Qtd"
                 onChange={(e) => setAmount(e.target.value)}
               />
+              </div>
+              <div className="w-30">
               <InputField
                 placeholder="teste"
                 title="Valor p/und"
                 onChange={(e) => setPrice(e.target.value)}
               />
+              </div>
+            
             </div>
             <div className="row2">
               <h1>Descrição</h1>

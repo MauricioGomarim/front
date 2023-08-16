@@ -39,4 +39,16 @@ export default createGlobalStyle`
     .hidden {
         display: none !important;
     }
+
+    .w-30 {
+     width: 30%;
+ }
+    .w-50 {
+        width: 47%;
+    }
+
+    .w-100 {
+        width: 100%;
+    }
+
 `

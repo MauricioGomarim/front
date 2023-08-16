@@ -21,11 +21,6 @@ export function ListagemCategorias() {
 
   const navigate = useNavigate();
 
-  function handleSetPage() {
-    setPage("Editar");
-    return;
-  }
-
   async function handleDelete(id){
     try {
       await api.delete(`/category/${id}`);
