@@ -46,6 +46,19 @@ export function PageCadastroProd() {
             });
     }
 
+    if (!price) {
+      return toast.warn('Campo de preço obrigatorio!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
+    }
+
     const formData = new FormData();
     formData.append("codigo", codigo);
     formData.append("title", name);
@@ -220,6 +233,7 @@ export function PageCadastroProd() {
               <InputField
                 placeholder="teste"
                 title="Valor p/und"
+
                 onChange={(e) => setPrice(e.target.value)}
               />
               </div>

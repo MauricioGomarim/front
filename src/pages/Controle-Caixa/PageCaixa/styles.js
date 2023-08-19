@@ -14,6 +14,9 @@ export const Content = styled.div`
     flex-direction: column;
     justify-content: space-between;
 
+
+
+
     .finalize {
       display: flex;
       justify-content: space-between;
@@ -22,9 +25,16 @@ export const Content = styled.div`
       h1 {
         color: black;
       }
+
+      .footer-checkout {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+  
     }
   }
-
   .content-2 {
     width: 50%;
     height: 82vh;
@@ -183,10 +193,18 @@ export const ContentForm = styled.div`
     color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
   }
 
+  
+  .footer-modal {
+        display: flex;
+        gap: 20px;
+        justify-content: flex-end;
+      }
+
   .row1 {
     display: flex;
     flex-wrap: wrap;
     gap: 5%;
+    margin-top: 20px;
     color: black;
     font-weight: bold;
     > div {
@@ -195,7 +213,9 @@ export const ContentForm = styled.div`
   }
 `;
 
-export const Form = styled.form``;
+export const Form = styled.form`
+  margin-top: 30px;
+`;
 
 export const Container = styled.div`
   height: 100vh;

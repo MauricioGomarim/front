@@ -1,4 +1,6 @@
 import React from "react";
+import Modal from "../../../components/Modal";
+
 import { ContentForm, Form } from "../PageCaixa/styles";
 
 import { BiSearchAlt2 } from "react-icons/bi";
@@ -29,6 +31,7 @@ export function PageCaixa() {
 
   const [searchNome, setSearchNome] = useState("");
   const [produtosName, setSearchNomeModal] = useState([""]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const [total, setTotal] = useState(0);
 
@@ -88,27 +91,33 @@ export function PageCaixa() {
   }
 
   function handleRemoveProduct(product) {
-
     setProducts((prevProducts) => {
       const updatedProducts = [...prevProducts];
-      
-        const existingProductIndex = updatedProducts.findIndex(
-          (productPrevious) => productPrevious.codigo === product.codigo
-        );
 
-        if(updatedProducts[existingProductIndex].vezes <= 1){
-          console.log("zerou")
-          updatedProducts.splice(existingProductIndex, 1);
-        } else {
-          updatedProducts[existingProductIndex].vezes -= 1;
-        }
+      const existingProductIndex = updatedProducts.findIndex(
+        (productPrevious) => productPrevious.codigo === product.codigo
+      );
 
-      
+      if (updatedProducts[existingProductIndex].vezes <= 1) {
+        console.log("zerou");
+        updatedProducts.splice(existingProductIndex, 1);
+      } else {
+        updatedProducts[existingProductIndex].vezes -= 1;
+      }
+
       const newTotal = total - product.price;
       setTotal(newTotal);
       return updatedProducts;
     });
   }
+
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
 
   useEffect(() => {
     async function fetchProductsName() {
@@ -183,12 +192,12 @@ export function PageCaixa() {
               <thead>
                 <tr>
                   <th>x</th>
+                  <th>Estoque</th>
                   <th>Imagem</th>
                   <th>Código</th>
                   <th>Nome</th>
                   <th>Preço</th>
-                  <th>Tamanho</th>
-                  <th>Quantidade</th>
+                  <th>Tamanho</th>                 
                   <th>Exluir</th>
                 </tr>
               </thead>
@@ -197,6 +206,7 @@ export function PageCaixa() {
                   produtos.map((produto, index) => (
                     <tr key={index}>
                       <td>{produto.vezes}x</td>
+                      <td>{produto.amount}</td>
                       <td>
                         <div className="foto">
                           {produto.image ? (
@@ -210,9 +220,9 @@ export function PageCaixa() {
                       </td>
                       <td>{produto.codigo}</td>
                       <td>{produto.title}</td>
-                      <td>{produto.price}</td>
+                      <td>R$ {produto.price}</td>
                       <td>{produto.size}</td>
-                      <td>{produto.amount}</td>
+                      
                       <td className="icon-excluir">
                         <button
                           type="button"
@@ -259,12 +269,49 @@ export function PageCaixa() {
           </ContentForm>
           <div className="finalize">
             <h1>Total: R${total}</h1>
-            <Button title="Finalizar pedido" />
+            <div className="footer-checkout">
+              <Button title="Cadastrar cliente" onClick={openModal} />
+              <Button title="Finalizar pedido" />
+            </div>
           </div>
         </div>
       </Content>
       <Caixa />
       <DesenvolvidoPor />
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Exemplo de Modal"
+      >
+        <ContentForm>
+          <Form>
+            <h1>Cadastro de cliente</h1>
+            <p>Preencha os dados do cliente</p>
+            <div className="row1">
+              <div className="w-50">
+                Nome
+                <InputField />
+              </div>
+              <div className="w-50">
+                Whatsapp
+                <InputField />
+              </div>
+              <div className="w-50">
+                CPF
+                <InputField />
+              </div>
+              <div className="w-50">
+                Endereço
+                <InputField />
+              </div>
+            </div>
+          </Form>
+          <div className="footer-modal">
+            <Button title="Fechar" onClick={closeModal} />
+            <Button title="Cadastrar" onClick={openModal} />
+          </div>
+        </ContentForm>
+      </Modal>
     </Container>
   );
 }

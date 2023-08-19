@@ -42,6 +42,7 @@ export function ListagemProdutos() {
           <thead>
             <tr>
             <th style={{ width: "60px" }}>ID</th>
+            <th style={{ width: "100px" }}>Estoque</th>
               <th style={{ width: "100px" }}>Imagem</th>
               <th style={{ width: "100px" }}>Código</th>
               <th>Nome</th>
@@ -49,7 +50,7 @@ export function ListagemProdutos() {
 
               <th style={{ width: "100px" }}>Preço</th>
               <th style={{ width: "10px" }}>Tamanho</th>
-              <th style={{ width: "10px" }}>Quantidade</th>
+             
               <th style={{ width: "150px" }}>Ação</th>
             </tr>
           </thead>
@@ -58,6 +59,7 @@ export function ListagemProdutos() {
             {produtos.length > 0 ? produtos.map((produto, index) => (
               <tr key={index}>
                 <td>00{produto.id}</td>
+                <td>{produto.amount > 0 ? produto.amount : '0' }</td>
                 <td>
                   <div className="foto">
                     {produto.image ? (
@@ -71,10 +73,10 @@ export function ListagemProdutos() {
                 </td>
                 <td>{produto.codigo}</td>
                 <td>{produto.title}</td>
-                <td>{produto.description}</td>
-                <td>R$ {produto.price}</td>
-                <td>{produto.size}</td>
-                <td>{produto.amount}</td>
+                <td>{produto.description > '' ? produto.description : '--' }</td>
+                <td>R$ {produto.price > '' ? produto.price : '--' }</td>
+                <td>{produto.size > '' ? produto.size : '--' }</td>
+                
                 <td>
                   <Link to={`/editar-prod/${produto.id}`}>Editar</Link>
 

@@ -51,4 +51,11 @@ export default createGlobalStyle`
         width: 100%;
     }
 
-`
+    .ReactModal__Content--after-open > div {
+        height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    }
+
+`;

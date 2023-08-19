@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 export const Container = styled.div`
   height: 100vh;
   display: grid;
@@ -10,7 +9,7 @@ export const Container = styled.div`
     "brand header"
     "menu content"
     "menu content"
-    "AdicionarProd content";
+    "AdicionarProd desenvolvidoPor";
 `;
 
 export const Content = styled.div`
