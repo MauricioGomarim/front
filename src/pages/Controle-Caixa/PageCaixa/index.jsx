@@ -24,16 +24,101 @@ import { api } from "../../../services/api";
 import { Search } from "../../../components/Search";
 
 import { useEffect, useState } from "react";
+import {useNavigate} from "react-router-dom";
 
 export function PageCaixa() {
   const [produtos, setProducts] = useState([]);
+  const [clientes, setClientes] = useState([]);
+
   const [searchCodigo, setSearchCodigo] = useState([""]);
+
+  const [nameClient, setNameClient] = useState();
+  const [whatsClient, setWhatsClient] = useState();
+  const [cpfClient, setCpfClient] = useState();
+  const [enderecoClient, setEnderecoClient] = useState();
+  const [bairroClient, setBairroClient] = useState();
+  const [numeroClient, setNumeroClient] = useState();
 
   const [searchNome, setSearchNome] = useState("");
   const [produtosName, setSearchNomeModal] = useState([""]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const [total, setTotal] = useState(0);
+
+  const [selectedClient, setSelectedClient] = useState("");
+  
+  const navigate = useNavigate();
+
+
+  const handleSelectChange = (event) => {
+    const selectedName = event.target.value;
+    const selectedClient = clientes.find(
+      (client) => client.name === selectedName
+    );
+    setSelectedClient(selectedClient);
+  };
+
+  async function fetchClientes() {
+    try {
+      const response = await api.get(`/client`);
+
+      setClientes(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar clientes:", error);
+    }
+  }
+
+  async function handleCadastrarClient() {
+    try {
+      await api.post("/client", {
+        name: nameClient,
+        whatsapp: whatsClient,
+        cpf: cpfClient,
+        bairro: "teste",
+        numero: "test",
+        endereco: enderecoClient,
+      });
+      toast.success("Cliente cadastrado com sucesso!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setModalIsOpen(false);
+    } catch (error) {
+      if (error.response) {
+        toast.error(error.response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        toast.error("Erro ao cadastrar o cliente!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    }
+
+    
+    fetchClientes();
+    return;
+  }
 
   async function fetchProducts(codigo) {
     try {
@@ -129,6 +214,17 @@ export function PageCaixa() {
         console.error("Erro ao buscar produtos:", error);
       }
     }
+
+    async function fetchClientes() {
+      try {
+        const response = await api.get(`/client`);
+
+        setClientes(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar clientes:", error);
+      }
+    }
+    fetchClientes();
     fetchProductsName();
   }, [searchNome]);
 
@@ -197,7 +293,7 @@ export function PageCaixa() {
                   <th>Código</th>
                   <th>Nome</th>
                   <th>Preço</th>
-                  <th>Tamanho</th>                 
+                  <th>Tamanho</th>
                   <th>Exluir</th>
                 </tr>
               </thead>
@@ -222,7 +318,7 @@ export function PageCaixa() {
                       <td>{produto.title}</td>
                       <td>R$ {produto.price}</td>
                       <td>{produto.size}</td>
-                      
+
                       <td className="icon-excluir">
                         <button
                           type="button"
@@ -245,24 +341,42 @@ export function PageCaixa() {
         <div className="content-1">
           <ContentForm>
             <h1>Checkout</h1>
-            <p>Preencha os dados do cliente</p>
+            <p>Selecione o cliente</p>
             <Form>
               <div className="row1">
-                <div className="w-50">
-                  Nome
-                  <InputField />
+                <div className="selectField w-50">
+                  <h1>Nome</h1>
+                  <select id="select-nome" onChange={handleSelectChange}>
+                    <option disabled selected>
+                      Selecione...
+                    </option>
+                    {clientes.map((client) => (
+                      <option value={client.name}>{client.name}</option>
+                    ))}
+                  </select>
                 </div>
+
                 <div className="w-50">
                   Whatsapp
-                  <InputField />
+                  <InputField readOnly value={selectedClient.whatsapp}/>
                 </div>
                 <div className="w-50">
                   CPF
-                  <InputField />
+                  <InputField readOnly value={selectedClient.cpf}/>
                 </div>
                 <div className="w-50">
-                  Endereço
-                  <InputField />
+                  Bairro
+                  <InputField readOnly value={selectedClient.bairro}/>
+                </div>
+              </div>
+              <div className="row3">
+                <div className="w-100">
+                  Bairro
+                  <InputField readOnly value={selectedClient.bairro}/>
+                </div>
+                <div className="w-30">
+                  Numero
+                  <InputField readOnly value={selectedClient.numero}/>
                 </div>
               </div>
             </Form>
@@ -290,25 +404,57 @@ export function PageCaixa() {
             <div className="row1">
               <div className="w-50">
                 Nome
-                <InputField />
+                <InputField
+                  onChange={(e) => setNameClient(e.target.value)}
+                  value={nameClient}
+                />
               </div>
               <div className="w-50">
                 Whatsapp
-                <InputField />
+                <InputField
+                  type="number"
+                  onChange={(e) => setWhatsClient(e.target.value)}
+                  value={whatsClient}
+                />
               </div>
               <div className="w-50">
                 CPF
-                <InputField />
+                <InputField
+                  type="number"
+                  onChange={(e) => setCpfClient(e.target.value)}
+                  value={cpfClient}
+                />
               </div>
               <div className="w-50">
                 Endereço
-                <InputField />
+                <InputField
+                  onChange={(e) => setEnderecoClient(e.target.value)}
+                  value={enderecoClient}
+                />
+              </div>
+
+              <div className="w-50">
+                Bairro
+                <InputField
+                  onChange={(e) => setBairroClient(e.target.value)}
+                  value={bairroClient}
+                />
+              </div>
+
+              <div className="w-50">
+                Numero
+                <InputField
+                  type="number"
+                  onChange={(e) => setNumeroClient(e.target.value)}
+                  value={numeroClient}
+                />
               </div>
             </div>
           </Form>
+
           <div className="footer-modal">
             <Button title="Fechar" onClick={closeModal} />
-            <Button title="Cadastrar" onClick={openModal} />
+            <Button title="Cadastrar" onClick={handleCadastrarClient} />
           </div>
         </ContentForm>
       </Modal>

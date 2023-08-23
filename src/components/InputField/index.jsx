@@ -1,11 +1,11 @@
 import {Container} from "./styles"
+import { IMaskInput } from "react-imask";
 
-
-export function InputField({title, widthField, ...rest}){
+export function InputField({title, widthField, mask, placeholder, ...rest}){
     return(
         <Container style={widthField}  >
             <h1>{title}</h1>
-            <input {...rest}/>
+            <IMaskInput mask={mask} placeholder={placeholder} {...rest} />
         </Container>
     )
 }

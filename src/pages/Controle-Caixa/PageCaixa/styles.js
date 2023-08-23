@@ -14,9 +14,6 @@ export const Content = styled.div`
     flex-direction: column;
     justify-content: space-between;
 
-
-
-
     .finalize {
       display: flex;
       justify-content: space-between;
@@ -24,15 +21,20 @@ export const Content = styled.div`
 
       h1 {
         color: black;
+        font-size: 30px;
+        max-width: 100px;
+        text-align: center;
       }
 
       .footer-checkout {
         display: flex;
         gap: 20px;
         flex-wrap: wrap;
-      }
 
-  
+        button {
+          font-size: 18px;
+        }
+      }
     }
   }
   .content-2 {
@@ -193,12 +195,18 @@ export const ContentForm = styled.div`
     color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
   }
 
-  
   .footer-modal {
-        display: flex;
-        gap: 20px;
-        justify-content: flex-end;
-      }
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+  }
+
+  .row3 {
+    display: flex;
+    gap: 5%;
+    color: black;
+    font-weight: bold;
+  }
 
   .row1 {
     display: flex;
@@ -209,6 +217,27 @@ export const ContentForm = styled.div`
     font-weight: bold;
     > div {
       margin-bottom: 20px;
+    }
+
+    .selectField {
+      border-radius: 10px;
+      width: 47%;
+
+      h1 {
+        font-weight: 700;
+        font-size: 16px;
+        color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
+      }
+    }
+
+    .selectField select {
+      background-color: ${({ theme }) => theme.COLORS.GRAY};
+      padding: 10px 15px;
+      border-radius: 10px;
+      width: 100%;
+      height: 50px;
+      font-size: 14px;
+      font-weight: 400;
     }
   }
 `;

@@ -13,6 +13,10 @@ import { PageCadastroCategoria } from '../pages/Controle-Categorias/PageCadastro
 import { PageEditarCategoria } from '../pages/Controle-Categorias/PageEditarCategoria'
 import { ListagemCategorias } from '../pages/Controle-Categorias/ListagemCategorias'
 
+import { PageCadastroClient } from '../pages/Controle-Client/PageCadastroClient'
+import { PageEditarClient } from '../pages/Controle-Client/PageEditarClient'
+import { ListagemClients } from '../pages/Controle-Client/ListagemClients'
+
 import { PageCaixa } from '../pages/Controle-Caixa/PageCaixa'
 
 
@@ -37,6 +41,11 @@ export function AppRoutes(){
             <Route path="/categorias" element={<ListagemCategorias />} />
 
             <Route path="/caixa" element={<PageCaixa />} />
+
+            <Route path="/clientes" element={<ListagemClients />} />
+            <Route path="/editar-client/:id" element={<PageEditarClient />} />
+
+
 
 
 

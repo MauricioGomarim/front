@@ -15,10 +15,11 @@ const Modal = ({ isOpen, onRequestClose, contentLabel, children }) => {
             background: 'rgba(0, 0, 0, 0.5)',
         },
         content: {
-          maxWidth: '1200px',
-          maxHeight: '400px',
+          maxWidth: '700px',
+          maxHeight: '800px',
           margin: '0 auto', 
-          inset: '200px'
+          inset: 'inherit',
+          position: 'relative'
         },
       }}
     >
