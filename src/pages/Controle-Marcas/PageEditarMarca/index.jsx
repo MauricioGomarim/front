@@ -3,6 +3,7 @@ import { Brand } from "../../../components/Brand";
 import { Header } from "../../../components/Header";
 import { Caixa } from "../../../components/Caixa";
 import { DesenvolvidoPor } from "../../../components/DesenvolvidoPor";
+import { toast } from 'react-toastify';
 
 import { ContentForm, Form, Container } from "./styles";
 import { InputField } from "../../../components/InputField/index";
@@ -20,16 +21,47 @@ export function PageEditarMarca() {
   const navigate = useNavigate();
 
   async function handleEditar() {
-    try {
-      await api.post("/brand", { marca });
 
-      alert("Marca cadastrada com sucesso!");
-      return;
+    try {
+      await api.put(`/brand/${id}`, { marca });
+
+      toast.success("Produto editado com sucesso!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+      navigate("/marcas")
+      
     } catch (error) {
       if (error.response) {
-        return alert(error.response.data.message);
+
+        toast.warning(error.response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
+          return
       } else {
-        return alert("Erro ao cadastrar essa marca!");
+        toast.warning("Erro ao editada essa marca!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       }
     }
   }
@@ -38,7 +70,7 @@ export function PageEditarMarca() {
   useEffect(() => {
     async function fetchBrands() {
       const response = await api.get(`/brand/${id}`);
-      setMarca(response.data);
+      setMarca(response.data.title);
     }
     fetchBrands();
   }, []);
@@ -64,11 +96,11 @@ export function PageEditarMarca() {
           <div className="row2">
             <InputField
               title="Marca"
-              value={marca.title}
+              value={marca}
               onChange={(e) => setMarca(e.target.value)}
             />
             <Button
-              title="Editar"
+              title="Confirmar"
               onClick={handleEditar}
               type="button"
               style={{ marginTop: "auto" }}
