@@ -196,6 +196,65 @@ export function PageCaixa() {
     });
   }
 
+  async function checkout(){
+
+    if(!selectedClient){
+      return toast.warning("Selecione um cliente!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+
+    try {
+      await api.post("/checkout", {
+        client: selectedClient,
+        produtos,
+        total
+      });
+      toast.success("Cliente cadastrado com sucesso!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setModalIsOpen(false);
+    } catch (error) {
+      if (error.response) {
+        toast.error(error.response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        toast.error("Erro ao cadastrar o cliente!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    }
+  }
+
   const openModal = () => {
     setModalIsOpen(true);
   };
@@ -385,7 +444,7 @@ export function PageCaixa() {
             <h1>Total: R${total}</h1>
             <div className="footer-checkout">
               <Button title="Cadastrar cliente" onClick={openModal} />
-              <Button title="Finalizar pedido" />
+              <Button title="Finalizar pedido" onClick={checkout} />
             </div>
           </div>
         </div>

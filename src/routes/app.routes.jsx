@@ -17,6 +17,9 @@ import { PageCadastroClient } from '../pages/Controle-Client/PageCadastroClient'
 import { PageEditarClient } from '../pages/Controle-Client/PageEditarClient'
 import { ListagemClients } from '../pages/Controle-Client/ListagemClients'
 
+import { SaidaPedidos } from '../pages/Controle-Saida-Produtos/SaidaPedidos'
+import { PedidosFinalizados } from '../pages/Controle-Saida-Produtos/PedidosFinalizados'
+
 import { PageCaixa } from '../pages/Controle-Caixa/PageCaixa'
 
 
@@ -45,6 +48,8 @@ export function AppRoutes(){
             <Route path="/clientes" element={<ListagemClients />} />
             <Route path="/editar-client/:id" element={<PageEditarClient />} />
 
+            <Route path="/saida-produtos" element={<SaidaPedidos />} />
+            <Route path="/pedidos-finalizados" element={<PedidosFinalizados />} />
 
 
 

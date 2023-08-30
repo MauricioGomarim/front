@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-
-
 export const Container = styled.div`
   height: 100vh;
   display: grid;
@@ -15,8 +13,8 @@ export const Container = styled.div`
 `;
 
 export const ContentForm = styled.div`
-
-grid-area:content;
+  grid-area: content;
+  overflow-y: auto;
 
   table {
     width: 50%;
@@ -27,7 +25,6 @@ grid-area:content;
 
     overflow: overlay;
     white-space: nowrap;
-    
   }
 
   table th {
@@ -37,14 +34,12 @@ grid-area:content;
   }
 
   table td a {
-    color:${({ theme }) => theme.COLORS.BASE};
+    color: ${({ theme }) => theme.COLORS.BASE};
     background-color: ${({ theme }) => theme.COLORS.BASE_100};
-    padding:10px 30px;
+    padding: 10px 30px;
     border-radius: 10px;
     transition: all 0.3s ease;
   }
-
-
 
   table thead {
     border: 1px solid red;
@@ -56,7 +51,7 @@ grid-area:content;
     max-height: 100px;
   }
 
-  tbody tr:nth-child(odd){
+  tbody tr:nth-child(odd) {
     background-color: ${({ theme }) => theme.COLORS.BASE_100};
   }
 

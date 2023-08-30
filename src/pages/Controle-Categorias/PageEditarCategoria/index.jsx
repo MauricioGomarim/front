@@ -7,14 +7,14 @@ import { DesenvolvidoPor } from "../../../components/DesenvolvidoPor";
 import { ContentForm, Form, Container } from "./styles";
 import { InputField } from "../../../components/InputField/index";
 import { Button } from "../../../components/Button";
-import { useNavigate, useParams  } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { api } from "../../../services/api";
+import { toast } from "react-toastify";
 
 import { useState, useEffect } from "react";
 
 export function PageEditarCategoria() {
   const [categoria, setCategoria] = useState("");
-
 
   const { id } = useParams();
   const navigate = useNavigate();
@@ -23,17 +23,46 @@ export function PageEditarCategoria() {
     try {
       await api.put(`/category/${id}`, { categoria });
 
-      alert("Categoria cadastrada com sucesso!");
+      toast.success("Produto editado com sucesso!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      navigate("/categorias");
       return;
     } catch (error) {
       if (error.response) {
-        return alert(error.response.data.message);
+        toast.warning(error.response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        return;
       } else {
-        return alert("Erro ao cadastrar essa categoria!");
+        toast.warning("Erro ao cadastrar essa categoria!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        return;
       }
     }
   }
-
 
   useEffect(() => {
     async function fetchBrands() {

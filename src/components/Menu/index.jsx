@@ -137,12 +137,12 @@ export function Menu({ page, setPage, ...rest }) {
         <div
           className="title-accordion"
           onClick={() =>
-            active == "clientes" ? setActive("") : setActive("clientes")
+            active == "client" ? setActive("") : setActive("client")
           }
         >
           <h1>Controle Clientes</h1>
           <span>
-            {active === "clientes" ? (
+            {active === "client" ? (
               <span>
                 <RiCloseFill />
               </span>
@@ -155,25 +155,70 @@ export function Menu({ page, setPage, ...rest }) {
         </div>
         <div
           className={
-            (active === "clientes" ? "show" : " ") + " accordionContent"
+            (active === "client" ? "show" : " ") + " accordionContent"
           }
         >
           <ul>
             <li
-              className={page === "cadastroCategoria" ? "Active" : " "}
-              onClick={() => setPage("cadastroCategoria")}
+              className={page === "cadastroClients" ? "Active" : " "}
+              onClick={() => setPage("cadastroClients")}
             >
               <Link to="/cadastro-categoria">Cadastrar cliente</Link>
             </li>
             <li
-              className={page === "VerCategoria" ? "Active" : " "}
-              onClick={() => setPage("VerCategoria")}
+              className={page === "listagemClientes" ? "Active" : " "}
+              onClick={() => setPage("listagemClientes")}
             >
               <Link to="/clientes">Listagem clientes</Link>
             </li>
           </ul>
         </div>
       </div>
+
+
+
+      <div>
+        <div
+          className="title-accordion"
+          onClick={() =>
+            active == "caixa" ? setActive("") : setActive("caixa")
+          }
+        >
+          <h1>Controle Saida</h1>
+          <span>
+            {active === "caixa" ? (
+              <span>
+                <RiCloseFill />
+              </span>
+            ) : (
+              <span>
+                <RiArrowDownSLine />
+              </span>
+            )}
+          </span>
+        </div>
+        <div
+          className={
+            (active === "caixa" ? "show" : " ") + " accordionContent"
+          }
+        >
+          <ul>
+            <li
+              className={page === "saidaProdutos" ? "Active" : " "}
+              onClick={() => setPage("saidaProdutos")}
+            >
+              <Link to="/saida-produtos">Saida de produtos</Link>
+            </li>
+            <li
+              className={page === "pedidosFinalizados" ? "Active" : " "}
+              onClick={() => setPage("pedidosFinalizados")}
+            >
+              <Link to="/pedidos-finalizados">Pedidos finalizados</Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
     </Container>
   );
 }
