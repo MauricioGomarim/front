@@ -212,7 +212,6 @@ export const ContentForm = styled.div`
     display: flex;
     flex-wrap: wrap;
     gap: 5%;
-    margin-top: 20px;
     color: black;
     font-weight: bold;
     > div {

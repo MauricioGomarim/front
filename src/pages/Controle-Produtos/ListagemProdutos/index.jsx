@@ -35,7 +35,7 @@ export function ListagemProdutos() {
       <Menu />
       <Header />
       <Brand />
-      <Search icon={<BiSearchAlt2 />}onChange={(e) => setSearch(e.target.value)}/>
+      <Search title="Produtos" placeholder="Procurar produto..."icon={<BiSearchAlt2 />}onChange={(e) => setSearch(e.target.value)}/>
       <Content>
 
         <table>

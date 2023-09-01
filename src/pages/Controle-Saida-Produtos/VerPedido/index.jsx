@@ -1,8 +1,5 @@
-
-
-
-import { toast } from 'react-toastify';
-import { ContentForm, Content , Form, Foto, Container } from "./styles";
+import { toast } from "react-toastify";
+import { ContentForm, Content, Form, Foto, Container } from "./styles";
 import { InputField } from "../../../components/InputField";
 import { Button } from "../../../components/Button";
 import { Menu } from "../../../components/Menu";
@@ -19,7 +16,7 @@ import foto from "../../../assets/placeholder-img.jpg";
 import { usePage } from "../../../hook/pages";
 import { BiFontSize } from "react-icons/bi";
 
-export function PageEditarClient() {
+export function VerPedido() {
   const { page, setPage } = usePage();
   const { id } = useParams();
 
@@ -31,16 +28,11 @@ export function PageEditarClient() {
   const [endereco, setEndereco] = useState("");
   const [numero, setNumero] = useState("");
 
-
   const navigate = useNavigate();
 
-  
-
   async function handleEditar() {
-
-
     await api
-      .put(`/client/${id}`, {name, whatsapp, cpf, bairro, endereco, numero})
+      .put(`/client/${id}`, { name, whatsapp, cpf, bairro, endereco, numero })
       .catch((error) => {
         if (error.response) {
           toast.error(error.response.data.message, {
@@ -52,7 +44,7 @@ export function PageEditarClient() {
             draggable: true,
             progress: undefined,
             theme: "light",
-            });
+          });
         } else {
           toast.error("Erro ao editar o produto!", {
             position: "top-right",
@@ -63,20 +55,22 @@ export function PageEditarClient() {
             draggable: true,
             progress: undefined,
             theme: "light",
-            });
+          });
         }
       })
-      .then(toast.success("Produto editado com sucesso!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        }));
-        navigate("/clientes")
+      .then(
+        toast.success("Produto editado com sucesso!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+      );
+    navigate("/clientes");
 
     return;
   }
@@ -94,10 +88,14 @@ export function PageEditarClient() {
         draggable: true,
         progress: undefined,
         theme: "light",
-        });
-      navigate("/produtos")
+      });
+      navigate("/produtos");
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.message) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
         alert(error.response.data.message);
         toast.warning(error.response.data.message, {
           position: "top-right",
@@ -108,7 +106,7 @@ export function PageEditarClient() {
           draggable: true,
           progress: undefined,
           theme: "light",
-          });
+        });
       } else {
         alert("");
         toast.warning("Erro ao excluir o produto!", {
@@ -120,26 +118,17 @@ export function PageEditarClient() {
           draggable: true,
           progress: undefined,
           theme: "light",
-          });
+        });
       }
     }
   }
-
 
   useEffect(() => {
     async function buscarDadosClientes() {
       const response = await api.get(`/client/${id}`);
       setData(response.data);
 
-      const {
-        name,
-        whatsapp,
-        cpf,
-        bairro,
-        endereco,
-        numero
-      } = response.data;
-
+      const { name, whatsapp, cpf, bairro, endereco, numero } = response.data;
 
       setName(name);
       setWhatsapp(whatsapp);
@@ -147,7 +136,6 @@ export function PageEditarClient() {
       setBairro(bairro);
       setEndereco(endereco);
       setNumero(numero);
-      
     }
     buscarDadosClientes();
 
@@ -171,88 +159,47 @@ export function PageEditarClient() {
           style={{
             paddingLeft: "50px",
             color: "black",
-            fontSize: "30px"
+            fontSize: "30px",
           }}
         >
-          Editar cliente
+          Pedido finalizado
         </h1>
         <ContentForm>
-
           <Form>
-            <div className="row3">
-            <div className="w-50">
-            <InputField            
-                title="Nome"
-                onChange={(e) => setName(e.target.value)}
-                value={name}
-              />
-            </div>
-            <div className="w-50">
-            
-            <InputField
-                mask="(00)00000-0000"
-                title="Whatsapp"
-                onChange={(e) => setWhatsapp(e.target.value)}
-                value={whatsapp}
-              />
-            </div>           
-                    
-          
-            </div>
-            <div className="row3">
-
-            <div className="w-50">
-            <InputField
-                mask="000.000.000-00"
-                title="CPF"
-                onChange={(e) => setCPF(e.target.value)}
-                value={cpf}
-              />
-            </div>
-                     
-              <div className="w-50">
-              <InputField
-                
-                title="Bairro"
-                value={bairro}
-                onChange={(e) => setBairro(e.target.value)}
-              />
+            <div className="row1">
+              <div className="w-100">
+                <InputField
+                  title="Nome"
+                  onChange={(e) => setName(e.target.value)}
+                  value={name}
+                />
               </div>
-                        
+              <div className="w-100">
+                <InputField
+                  title="Tipo pagamento"
+                  onChange={(e) => setWhatsapp(e.target.value)}
+                  value={whatsapp}
+                />
+              </div>
+
+              <div className="w-100">
+                <InputField
+                  title="Valor"
+                  onChange={(e) => setWhatsapp(e.target.value)}
+                  value={whatsapp}
+                />
+              </div>
+
+              <div className="w-100">
+                <InputField
+                  title="Data"
+                  onChange={(e) => setWhatsapp(e.target.value)}
+                  value={whatsapp}
+                />
+              </div>
             </div>
 
-
-            <div className="row3">
-
-            <div className="w-100">
-              <InputField
-              
-                title="Endereço"
-                value={endereco}
-                onChange={(e) => setEndereco(e.target.value)}
-              />
-              </div>
-                     
-              <div className="w-30">
-              <InputField
-                mask="0000000"
-                title="Numero"
-                value={numero}
-                onChange={(e) => setNumero(e.target.value)}
-              />
-              </div>
-             
-             
-            </div>
-            <div className="row4">
-          <Button title="Excluir" onClick={handleExcluir} />
-          <Button title="Confirmar" type="button" onClick={handleEditar} />
-          </div>
-
-    
           </Form>
-
-          
         </ContentForm>
       </Content>
 

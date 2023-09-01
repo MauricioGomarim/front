@@ -6,8 +6,11 @@ justify-content: center;
 align-items: center;
 background-color: ${({ theme }) => theme.COLORS.BASE};
 padding: 20px 0;
+grid-area: search;
 
-
+.text-search {
+    margin-right: 100px;
+}
 
 svg {
     font-size: 30px;

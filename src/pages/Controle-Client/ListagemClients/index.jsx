@@ -36,6 +36,8 @@ export function ListagemClients() {
       <Header />
       <Brand />
       <Search
+      title="Clientes"
+        placeholder="Procurar cliente..."
         icon={<BiSearchAlt2 />}
         onChange={(e) => setSearch(e.target.value)}
       />

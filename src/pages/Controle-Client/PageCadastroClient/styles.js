@@ -41,7 +41,7 @@ export const ContentForm = styled.div`
 export const Form = styled.form`
   display: flex;
   flex-wrap: wrap;
-  width: 68%;
+  width: 70%;
   height: 100%;
 
   .row1 {
@@ -52,6 +52,11 @@ export const Form = styled.form`
     height: fit-content;
     margin-bottom: 20px;
 
+    .button {
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+    }
     .selectField {
       border-radius: 10px;
       width: 30%;

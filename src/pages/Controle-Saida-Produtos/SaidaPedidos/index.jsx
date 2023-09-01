@@ -36,6 +36,8 @@ export function SaidaPedidos() {
       <Header />
       <Brand />
       <Search
+        title="Saida de produtos"
+        placeholder="Procurar pedidos"
         icon={<BiSearchAlt2 />}
         onChange={(e) => setSearch(e.target.value)}
       />
@@ -45,13 +47,12 @@ export function SaidaPedidos() {
             <tr>
               <th style={{ width: "60px" }}>ID</th>
               <th style={{ width: "100px" }}>ID Saida</th>
-              <th style={{ width: "100px" }}>Nome</th>
+              <th style={{ width: "150px" }}>Nome</th>
               <th style={{ width: "100px" }}>Nome produto</th>
-              <th style={{ width: "200px" }}>Preço</th>
+              <th style={{ width: "100px" }}>Preço</th>
 
               <th style={{ width: "200px" }}>Quantidade</th>
               <th style={{ width: "100px" }}>Data</th>
-              <th style={{ width: "150px" }}>Ação</th>
             </tr>
           </thead>
           <tbody>
@@ -85,9 +86,6 @@ export function SaidaPedidos() {
                     <td>{client.price > "" ? client.price : "--"}</td>
                     <td>{client.quantidade > "" ? client.quantidade : "--"}</td>
                     <td>{formattedDate}</td>
-                    <td>
-                      <Link to={`/editar-client/${client.id}`}>Ver</Link>
-                    </td>
                   </tr>
                 );
               })

@@ -163,7 +163,7 @@ export function Menu({ page, setPage, ...rest }) {
               className={page === "cadastroClients" ? "Active" : " "}
               onClick={() => setPage("cadastroClients")}
             >
-              <Link to="/cadastro-categoria">Cadastrar cliente</Link>
+              <Link to="/cadastro-client">Cadastrar cliente</Link>
             </li>
             <li
               className={page === "listagemClientes" ? "Active" : " "}

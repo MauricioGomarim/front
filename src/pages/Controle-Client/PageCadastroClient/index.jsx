@@ -1,5 +1,4 @@
-
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { Menu } from "../../../components/Menu";
 import { Brand } from "../../../components/Brand";
 import { Header } from "../../../components/Header";
@@ -16,63 +15,52 @@ import { api } from "../../../services/api";
 import { useState, useEffect } from "react";
 
 export function PageCadastroClient() {
-  const [codigo, setCod] = useState("");
-  const [name, setName] = useState("");
-  const [category, setCategory] = useState("");
-  const [brand, setBrand] = useState("");
-  const [description, setDescription] = useState("");
-  const [size, setSize] = useState("");
-  const [amount, setAmount] = useState("");
-  const [price, setPrice] = useState("");
-  const [image, setImage] = useState(null);
-  const [avatar, setAvatar] = useState(null);
-
-  const [brands, setBrands] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const [nameClient, setNameClient] = useState();
+  const [whatsClient, setWhatsClient] = useState();
+  const [cpfClient, setCpfClient] = useState();
+  const [enderecoClient, setEnderecoClient] = useState();
+  const [bairroClient, setBairroClient] = useState();
+  const [numeroClient, setNumeroClient] = useState();
 
   const navigate = useNavigate();
 
   async function handleCadastrar() {
-    if (!codigo) {
-      return toast.warn('Campo de código obrigatorio!', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            });
-    }
+    // if (!codigo) {
+    //   return toast.warn("Campo de código obrigatorio!", {
+    //     position: "top-right",
+    //     autoClose: 5000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //     theme: "light",
+    //   });
+    // }
 
-    if (!price) {
-      return toast.warn('Campo de preço obrigatorio!', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            });
-    }
-
-    const formData = new FormData();
-    formData.append("codigo", codigo);
-    formData.append("title", name);
-    formData.append("category", category);
-    formData.append("brand", brand);
-    formData.append("description", description);
-    formData.append("size", size);
-    formData.append("amount", amount);
-    formData.append("price", price);
-    formData.append("image", image);
+    // if (!price) {
+    //   return toast.warn("Campo de preço obrigatorio!", {
+    //     position: "top-right",
+    //     autoClose: 5000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //     theme: "light",
+    //   });
+    // }
 
     try {
-      await api.post("/products", formData);
-      toast.success('Produto cadastrado com sucesso!', {
+      await api.post("/client", {
+        name: nameClient,
+        whatsapp: whatsClient,
+        cpf: cpfClient,
+        bairro: bairroClient,
+        numero: numeroClient,
+        endereco: enderecoClient,
+      });
+      toast.success("Cliente cadastrado com sucesso!", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -81,9 +69,9 @@ export function PageCadastroClient() {
         draggable: true,
         progress: undefined,
         theme: "light",
-        });
+      });
 
-      navigate("/produtos");
+      navigate("/clientes");
     } catch (error) {
       if (error.response) {
         toast.error(error.response.data.message, {
@@ -95,10 +83,9 @@ export function PageCadastroClient() {
           draggable: true,
           progress: undefined,
           theme: "light",
-          });
-        
+        });
       } else {
-        toast.error('Erro ao cadastrar o produto!', {
+        toast.error("Erro ao cadastrar o cliente!", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -107,31 +94,12 @@ export function PageCadastroClient() {
           draggable: true,
           progress: undefined,
           theme: "light",
-          });
+        });
       }
     }
 
     return;
   }
-
-  async function handleChangeAvatar(event) {
-    const file = event.target.files[0];
-    setImage(file);
-
-    const imagePreview = URL.createObjectURL(file);
-    setAvatar(imagePreview);
-  }
-
-  useEffect(() => {
-    async function fetch() {
-      const responseBrand = await api.get(`/brand`);
-      setBrands(responseBrand.data);
-
-      const responseCategory = await api.get(`/category`);
-      setCategories(responseCategory.data);
-    }
-    fetch();
-  }, []);
 
   return (
     <Container>
@@ -146,111 +114,63 @@ export function PageCadastroClient() {
             fontSize: "30px",
           }}
         >
-          Cadastrar produtos
+          Cadastrar cliente
         </h1>
         <ContentForm>
-          <Foto>
-            <label htmlFor="avatar">
-              Foto produto
-              <img src={avatar ? avatar : foto} />
-              <input
-                id="avatar"
-                type="file"
-                name="image"
-                accept="image/*"
-                onChange={handleChangeAvatar}
-              />
-            </label>
-          </Foto>
           <Form>
             <div className="row1">
               <div className="w-30">
-              <InputField
-                placeholder="Código"
-                title="Código"
-                onChange={(e) => setCod(e.target.value)}
-              />
+                <InputField
+                  title="Nome"
+                  onChange={(e) => setNameClient(e.target.value)}
+                />
               </div>
               <div className="w-30">
-              <InputField
-                placeholder="Nome"
-                title="Nome"
-                onChange={(e) => setName(e.target.value)}
-              />
+                <InputField
+                  title="Whatsapp"
+                  onChange={(e) => setWhatsClient(e.target.value)}
+                />
               </div>
-
-              
-              <div className="selectField w-30">
-                <h1>Categoria</h1>
-                <select
-                  name="select"
-                  onChange={(e) => setCategory(e.target.value)}
-                >
-                  <option disabled selected>
-                    Selecione...
-                  </option>
-                  {categories.map((categorie) => (
-                    <option value={categorie.title}>{categorie.title}</option>
-                  ))}
-                </select>
+              <div className="w-30">
+                <InputField
+                  title="CPF"
+                  onChange={(e) => setCpfClient(e.target.value)}
+                />
               </div>
             </div>
-            <div className="row3">
-              <div className="selectField">
-                <h1>Marca</h1>
-                <select
-                  name="select"
-                  onChange={(e) => setBrand(e.target.value)}
-                >
-                  <option disabled selected>
-                    Selecione...
-                  </option>
-                  {brands.map((brand) => (
-                    <option value={brand.title}>{brand.title}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="selectField">
-                <h1>Tamanho</h1>
-                <select name="select" onChange={(e) => setSize(e.target.value)}>
-                  <option disabled selected>
-                    Selecione...
-                  </option>
-                  <option value="P">P</option>
-                  <option value="M">M</option>
-                  <option value="G">G</option>
-                  <option value="GG">GG</option>
-                </select>
-              </div>
+            <div className="row1">
               <div className="w-30">
-              <InputField
-                placeholder="teste"
-                title="Qtd"
-                onChange={(e) => setAmount(e.target.value)}
-              />
+                <InputField
+                  title="Bairro"
+                  onChange={(e) => setBairroClient(e.target.value)}
+                />
               </div>
-              <div className="w-30">
-              <InputField
-                placeholder="teste"
-                title="Valor p/und"
 
-                onChange={(e) => setPrice(e.target.value)}
-              />
+              <div className="w-30">
+                <InputField
+                  title="Endereço"
+                  onChange={(e) => setEnderecoClient(e.target.value)}
+                />
               </div>
-            
+
+              <div className="w-30">
+                <InputField
+                  title="Numero"
+                  onChange={(e) => setNumeroClient(e.target.value)}
+                />
+              </div>
             </div>
-            <div className="row2">
-              <h1>Descrição</h1>
-              <textarea
-                placeholder="Descrição"
-                onChange={(e) => setDescription(e.target.value)}
-              ></textarea>
+
+            <div className="row1">
+              <div className="w-100 button">
+                <Button
+                  title="Cadastrar"
+                  type="button"
+                  onClick={handleCadastrar}
+                />
+              </div>
             </div>
           </Form>
-
-          <div className="row4">
-            <Button title="Cadastrar" onClick={handleCadastrar} />
-          </div>
         </ContentForm>
       </Content>
       <Caixa />

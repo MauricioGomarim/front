@@ -1,5 +1,5 @@
-import { format } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 
 import { Menu } from "../../../components/Menu";
 import { Brand } from "../../../components/Brand";
@@ -19,15 +19,15 @@ import { Search } from "../../../components/Search";
 import { useEffect, useState } from "react";
 
 export function PedidosFinalizados() {
-  const [clientes, setClientes] = useState([""]);
+  const [pedidos, setPedidos] = useState([""]);
   const [search, setSearch] = useState([""]);
 
   useEffect(() => {
-    async function fetchClients() {
-      const response = await api.get(`/client?title=${search}`);
-      setClientes(response.data);
+    async function fetchPedidos() {
+      const response = await api.get(`/pedidos-finalizados?title=${search}`);
+      setPedidos(response.data);
     }
-    fetchClients();
+    fetchPedidos();
   }, [search]);
 
   return (
@@ -36,6 +36,8 @@ export function PedidosFinalizados() {
       <Header />
       <Brand />
       <Search
+        placeholder="Procurar por pedido"
+        title="Pedidos finalizados"
         icon={<BiSearchAlt2 />}
         onChange={(e) => setSearch(e.target.value)}
       />
@@ -45,57 +47,49 @@ export function PedidosFinalizados() {
             <tr>
               <th style={{ width: "60px" }}>ID</th>
               <th style={{ width: "100px" }}>Nome</th>
-              <th style={{ width: "100px" }}>Whatsapp</th>
-              <th style={{ width: "100px" }}>CPF</th>
-              <th style={{ width: "200px" }}>Bairro</th>
-
-              <th style={{ width: "200px" }}>Endereço</th>
-              <th style={{ width: "100px" }}>Numero</th>
-
-              <th style={{ width: "150px" }}>Data cadastro</th>
+              <th style={{ width: "100px" }}>Tipo pagamento</th>
+              <th style={{ width: "100px" }}>Valor</th>
+              <th style={{ width: "100px" }}>Data</th>
               <th style={{ width: "150px" }}>Ação</th>
             </tr>
           </thead>
           <tbody>
-            {clientes.length > 0 ? (
-              clientes.map((client, index) => {
-
+            {pedidos.length > 0 ? (
+              pedidos.map((pedido, index) => {
                 let createdAtDate;
 
-                if (client.created_at instanceof Date) {
-                  createdAtDate = client.created_at;
-                } else if (typeof client.created_at === 'string') {
+                if (pedido.data instanceof Date) {
+                  createdAtDate = pedido.data;
+                } else if (typeof pedido.data === "string") {
                   // Tente analisar a string em uma data
-                  const parsedDate = Date.parse(client.created_at);
-            
+                  const parsedDate = Date.parse(pedido.data);
+
                   if (!isNaN(parsedDate)) {
                     createdAtDate = new Date(parsedDate);
                   }
                 }
-            
+
                 const formattedDate = createdAtDate
                   ? format(createdAtDate, "dd/MM/yyyy HH:mm", { locale: ptBR })
-                  : '--'; // Data inválida ou não definida
-            
+                  : "--"; // Data inválida ou não definida
 
                 return (
                   <tr key={index}>
-                    <td>{client.id}</td>
-                    <td>{client.name}</td>
-                    <td>{client.whatsapp > 0 ? client.whatsapp : "--"}</td>
-                    <td>{client.cpf > 0 ? client.cpf : "--"}</td>
-                    <td>{client.bairro}</td>
-                    <td>{client.endereco > "" ? client.endereco : "--"}</td>
-                    <td>{client.numero > "" ? client.numero : "--"}</td>
+                    <td>{pedido.id}</td>
+                    <td>{pedido.name}</td>
+                    <td>
+                      {pedido.tipo_pagamento ? pedido.tipo_pagamento : "--"}
+                    </td>
+                    <td>{pedido.valor > 0 ? pedido.valor : "--"}</td>
                     <td>{formattedDate}</td>
                     <td>
-                      <Link to={`/editar-client/${client.id}`}>Editar</Link>
+                      <Link to={`/ver-pedido/${pedido.id}`}>Ver pedido</Link>
                     </td>
                   </tr>
                 );
               })
             ) : (
-              <div>Nenhum client encontrado.</div>
+              <div>Nenhum pedido encontrado.</div>
             )}
           </tbody>
         </table>

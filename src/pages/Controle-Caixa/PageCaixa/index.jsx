@@ -24,7 +24,7 @@ import { api } from "../../../services/api";
 import { Search } from "../../../components/Search";
 
 import { useEffect, useState } from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function PageCaixa() {
   const [produtos, setProducts] = useState([]);
@@ -46,7 +46,9 @@ export function PageCaixa() {
   const [total, setTotal] = useState(0);
 
   const [selectedClient, setSelectedClient] = useState("");
-  
+  const [selectedMetodoPagamento, setMetodoPagamento] = useState("");
+
+
   const navigate = useNavigate();
 
 
@@ -115,7 +117,6 @@ export function PageCaixa() {
       }
     }
 
-    
     fetchClientes();
     return;
   }
@@ -196,10 +197,22 @@ export function PageCaixa() {
     });
   }
 
-  async function checkout(){
-
-    if(!selectedClient){
+  async function checkout() {
+    if (!selectedClient) {
       return toast.warning("Selecione um cliente!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+
+    if(produtos.length <= 0){
+      return toast.warning("Antes de finalizar, selecione algum pedido!", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -215,7 +228,8 @@ export function PageCaixa() {
       await api.post("/checkout", {
         client: selectedClient,
         produtos,
-        total
+        total,
+        tipo_pagamento: selectedMetodoPagamento
       });
       toast.success("Cliente cadastrado com sucesso!", {
         position: "top-right",
@@ -417,25 +431,38 @@ export function PageCaixa() {
 
                 <div className="w-50">
                   Whatsapp
-                  <InputField readOnly value={selectedClient.whatsapp}/>
+                  <InputField readOnly value={selectedClient.whatsapp} />
                 </div>
                 <div className="w-50">
                   CPF
-                  <InputField readOnly value={selectedClient.cpf}/>
+                  <InputField readOnly value={selectedClient.cpf} />
                 </div>
                 <div className="w-50">
                   Bairro
-                  <InputField readOnly value={selectedClient.bairro}/>
+                  <InputField readOnly value={selectedClient.bairro} />
                 </div>
               </div>
-              <div className="row3">
-                <div className="w-100">
-                  Bairro
-                  <InputField readOnly value={selectedClient.bairro}/>
+              <div className="row1">
+                <div className="w-50">
+                  Endereço
+                  <InputField readOnly value={selectedClient.endereco} />
                 </div>
-                <div className="w-30">
+                <div className="w-50">
                   Numero
-                  <InputField readOnly value={selectedClient.numero}/>
+                  <InputField readOnly value={selectedClient.numero} />
+                </div>
+
+                <div className="selectField w-50">
+                  <h1>Tipo pagamento</h1>
+                  <select id="select-nome" onChange={(e) => setMetodoPagamento(e.target.value)}>
+                    <option disabled selected>
+                      Selecione...
+                    </option>
+                    <option value="Crédito">Crédito</option>
+                    <option value="Débito">Débito</option>
+                    <option value="Pix">Pix</option>
+                    <option value="À vista">À vista</option>
+                  </select>
                 </div>
               </div>
             </Form>

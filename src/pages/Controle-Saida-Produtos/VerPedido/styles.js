@@ -62,7 +62,7 @@ export const ContentForm = styled.div`
 export const Form = styled.form`
   display: flex;
   flex-wrap: wrap;
-  width: 68%;
+  width: 40%;
   height: 100%;
 
   .row1 {
