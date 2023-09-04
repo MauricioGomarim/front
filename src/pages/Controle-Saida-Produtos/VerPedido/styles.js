@@ -31,10 +31,7 @@ export const Container = styled.div`
 export const Content = styled.div`
   padding: 30px;
   grid-area: content;
-  background-image: url(${img});
-  background-repeat: no-repeat;
-  background-position: bottom right;
-  background-size: 400px;
+
 `;
 
 export const ContentForm = styled.div`

@@ -22,109 +22,38 @@ export function VerPedido() {
 
   const [data, setData] = useState("");
   const [name, setName] = useState("");
-  const [whatsapp, setWhatsapp] = useState("");
-  const [cpf, setCPF] = useState("");
-  const [bairro, setBairro] = useState("");
-  const [endereco, setEndereco] = useState("");
-  const [numero, setNumero] = useState("");
+  const [valor, setValor] = useState("");
+  const [tipoPagamento, setTipoPagamento] = useState("");
+  const [horaPagamento, setHoraPagamento] = useState("");
 
+
+  console.log(valor)
   const navigate = useNavigate();
 
-  async function handleEditar() {
-    await api
-      .put(`/client/${id}`, { name, whatsapp, cpf, bairro, endereco, numero })
-      .catch((error) => {
-        if (error.response) {
-          toast.error(error.response.data.message, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
-        } else {
-          toast.error("Erro ao editar o produto!", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
-        }
-      })
-      .then(
-        toast.success("Produto editado com sucesso!", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        })
-      );
-    navigate("/clientes");
 
-    return;
-  }
-
-  async function handleExcluir() {
-    try {
-      await api.delete(`/products/${id}`);
-
-      toast.success("Produto excluído com sucesso!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      navigate("/produtos");
-    } catch (error) {
-      if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
-        alert(error.response.data.message);
-        toast.warning(error.response.data.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      } else {
-        alert("");
-        toast.warning("Erro ao excluir o produto!", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
-    }
-  }
 
   useEffect(() => {
-    async function buscarDadosClientes() {
+    async function buscarDadosCliente() {
+      const response = await api.get(`/pedidos-finalizados/${id}`);
+      console.log("response", response.data)
+
+
+      setData(response.data);
+      
+      const { name, valor, tipo_pagamento, hora} = response.data;
+      
+      
+      setName(name);
+      setValor(valor);
+      setTipoPagamento(tipo_pagamento);
+      setHoraPagamento(hora);
+      
+
+    }
+
+    buscarDadosCliente();
+
+    async function buscarProdutosCliente() {
       const response = await api.get(`/client/${id}`);
       setData(response.data);
 
@@ -137,7 +66,6 @@ export function VerPedido() {
       setEndereco(endereco);
       setNumero(numero);
     }
-    buscarDadosClientes();
 
     async function fetchCategorys() {
       const responseBrand = await api.get(`/brand`);
@@ -146,7 +74,7 @@ export function VerPedido() {
       const responseCategory = await api.get(`/category`);
       setCategories(responseCategory.data);
     }
-    fetchCategorys();
+ 
   }, []);
 
   return (
@@ -170,36 +98,42 @@ export function VerPedido() {
               <div className="w-100">
                 <InputField
                   title="Nome"
-                  onChange={(e) => setName(e.target.value)}
+                  readOnly
                   value={name}
                 />
               </div>
+
+              
               <div className="w-100">
                 <InputField
                   title="Tipo pagamento"
-                  onChange={(e) => setWhatsapp(e.target.value)}
-                  value={whatsapp}
+                  readOnly
+                  value={tipoPagamento}
                 />
               </div>
+              
 
               <div className="w-100">
                 <InputField
                   title="Valor"
-                  onChange={(e) => setWhatsapp(e.target.value)}
-                  value={whatsapp}
+                  readOnly
+                  value={valor}
                 />
               </div>
 
               <div className="w-100">
                 <InputField
                   title="Data"
-                  onChange={(e) => setWhatsapp(e.target.value)}
-                  value={whatsapp}
+                  readOnly
+                  value={horaPagamento}
                 />
               </div>
             </div>
 
           </Form>
+          <div class="listagem-produtos">
+
+          </div>
         </ContentForm>
       </Content>
 

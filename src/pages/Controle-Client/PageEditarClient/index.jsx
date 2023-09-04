@@ -190,13 +190,12 @@ export function PageEditarClient() {
             <div className="w-50">
             
             <InputField
-                mask="(00)00000-0000"
+                mask="(00) 00000-0000"
                 title="Whatsapp"
                 onChange={(e) => setWhatsapp(e.target.value)}
                 value={whatsapp}
               />
             </div>           
-                    
           
             </div>
             <div className="row3">

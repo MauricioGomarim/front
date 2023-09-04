@@ -127,12 +127,14 @@ export function PageCadastroClient() {
               </div>
               <div className="w-30">
                 <InputField
+                  mask="(00) 00000-0000"
                   title="Whatsapp"
                   onChange={(e) => setWhatsClient(e.target.value)}
                 />
               </div>
               <div className="w-30">
                 <InputField
+                  mask="000.000.000-00"
                   title="CPF"
                   onChange={(e) => setCpfClient(e.target.value)}
                 />
@@ -155,6 +157,7 @@ export function PageCadastroClient() {
 
               <div className="w-30">
                 <InputField
+                mask="000000"
                   title="Numero"
                   onChange={(e) => setNumeroClient(e.target.value)}
                 />
