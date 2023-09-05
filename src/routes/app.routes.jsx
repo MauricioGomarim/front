@@ -56,11 +56,6 @@ export function AppRoutes(){
             <Route path="/pedidos-finalizados" element={<PedidosFinalizados />} />
             <Route path="/ver-pedido/:id" element={<VerPedido />} />
 
-
-fg
-
-
-
         </Routes>
     )
 }
